@@ -4,11 +4,36 @@
   
     
     <entry>
-      <title>添加一篇blog文章</title>
+      <title>修改 Gitalk 评论区字体样式</title>
+      <link href="blog/CommentFont/"/>
+      <url>blog/CommentFont/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="定制博客-Gitalk-评论区的字体"><a href="#定制博客-Gitalk-评论区的字体" class="headerlink" title="定制博客 Gitalk 评论区的字体"></a>定制博客 Gitalk 评论区的字体</h1><hr><h2 id="重定向-gitalk-min-css"><a href="#重定向-gitalk-min-css" class="headerlink" title="重定向 gitalk.min.css"></a>重定向 gitalk.min.css</h2><div class="note info modern"><p>Gitalk 的样式可以在<code>_config.butterfly.yml</code>中的<code>comment</code>区找到。</p></div><p>Gitalk 的<code>css</code>文件默认定向为<code>https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css</code>，我们将其重定向为自己新建的<code>/css/gitalk.min.css</code>。</p><p><img src="\blog\CommentFont\FontRef.png" alt="Font Ref" style="zoom:80%;" /></p><hr><h2 id="新建-gitalk-min-css"><a href="#新建-gitalk-min-css" class="headerlink" title="新建 gitalk.min.css"></a>新建 gitalk.min.css</h2><div class="note info modern"><p>在<code>theme/butterfly/source/css</code>中新建一个<code>gitalk.min.css</code>文件，然后在本地部署的网页中打开<code>DevTools</code>工具(F12)，找到<code>gitalk.min.css</code>并将其中内容复制到前者中。</p></div><p><img src="\blog\CommentFont\DevTools.png" alt="Dev Tools" style="zoom:80%;" /></p><hr><h2 id="修改-font-family"><a href="#修改-font-family" class="headerlink" title="修改 font-family"></a>修改 font-family</h2><p>在复制好的<code>gitalk.min.css</code>中对<code>font-family</code>进行修改，这样评论区的样式就由重定向后的结果决定。</p><p><img src="\blog\CommentFont\FontChange.png" alt="Font Change" style="zoom:80%;" /></p><hr><h2 id="查看评论区结果"><a href="#查看评论区结果" class="headerlink" title="查看评论区结果"></a>查看评论区结果</h2><p>修改前：</p><p><img src="\blog\CommentFont\BeforeChange.png" alt="Before Change"></p><p>修改后：</p><p><img src="\blog\CommentFont\AfterChange.png" alt="After Change"></p><div class="note info modern"><p>评论区字体修正成功！</p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> WEB </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> My Blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>添加一篇 blog 文章</title>
       <link href="blog/WriteBlog/"/>
       <url>blog/WriteBlog/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="小白如何添加自己的第一篇blog"><a href="#小白如何添加自己的第一篇blog" class="headerlink" title="小白如何添加自己的第一篇blog"></a>小白如何添加自己的第一篇blog</h1><hr><h2 id="页面生成"><a href="#页面生成" class="headerlink" title="页面生成"></a>页面生成</h2><p>点击<code>创建文章或页面.bat</code>文件，选择1。</p><p><img src="\blog\WriteBlog\BuildPage.png" width="60%"></p><p><img src="\blog\WriteBlog\BuildPage1.png" alt="Build Page" width="60%"></p><div class="note info modern"><p>可以看到<code>source\_posts</code>里多了一个文件夹和一个md文件，这里就是咱们需要修改的地方。</p></div><p><img src="\blog\WriteBlog\NewBlog.png" alt="New Blog" style="zoom:67%;" /></p><hr><h2 id="编辑页面"><a href="#编辑页面" class="headerlink" title="编辑页面"></a>编辑页面</h2><p>打开md文件， 这里需要用<code>markdown</code>语法写笔记。</p><div class="note success modern"><p>目前主流的<code>markdown</code>编辑器有很多，知乎上已经介绍地非常详细了<a href="https://zhuanlan.zhihu.com/p/69210764"><strong>Link</strong></a>，不过本人还是喜欢用<code>Typora</code>，简洁干净轻量，还有各式各样好看的主题可供选择。</p></div><blockquote><p>[!Note]</p><ul><li>This is my first blog!<ul><li>Hello World!</li><li>[x] Good Job!</li></ul></li></ul></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@jueye ~]<span class="comment"># echo Hello Typora!</span></span><br><span class="line">Hello Typora!</span><br></pre></td></tr></table></figure><p>以本节上方内容为例，<code>Typora</code>里输出的样式如下图所示。</p><p><img src="\blog\WriteBlog\DemoBlog.png" alt="Demo Blog" style="zoom:60%;" /></p><div class="note info modern"><p>针对<code>Markdown</code>语法，后面会出一期专栏进行详解，有兴趣的小伙伴可以多多关注萌雪哦！</p></div><hr><h2 id="页面部署"><a href="#页面部署" class="headerlink" title="页面部署"></a>页面部署</h2><div class="note success modern"><p>页面部署和博客的线上部署步骤一样，已经整理成傻瓜式<a href="/blog/done/#上传博客">点击</a>就送啦！</p></div><div class="note info modern"><p>值得注意的是，md文件内容与本地部署的测试页面是同步更新的，这意味着大家可以在本地边写Blog边刷新网页看成果，简直太欢愉了！</p></div>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="小白如何添加自己的第一篇-blog"><a href="#小白如何添加自己的第一篇-blog" class="headerlink" title="小白如何添加自己的第一篇 blog"></a>小白如何添加自己的第一篇 blog</h1><hr><h2 id="页面生成"><a href="#页面生成" class="headerlink" title="页面生成"></a>页面生成</h2><p>点击<code>创建文章或页面.bat</code>文件，选择1。</p><p><img src="\blog\WriteBlog\BuildPage.png" width="60%"></p><p><img src="\blog\WriteBlog\BuildPage1.png" alt="Build Page" width="60%"></p><div class="note info modern"><p>可以看到<code>source\_posts</code>里多了一个文件夹和一个md文件，这里就是咱们需要修改的地方。</p></div><p><img src="\blog\WriteBlog\NewBlog.png" alt="New Blog" style="zoom:67%;" /></p><hr><h2 id="编辑页面"><a href="#编辑页面" class="headerlink" title="编辑页面"></a>编辑页面</h2><p>打开md文件， 这里需要用<code>markdown</code>语法写笔记。</p><div class="note success modern"><p>目前主流的<code>markdown</code>编辑器有很多，知乎上已经介绍地非常详细了<a href="https://zhuanlan.zhihu.com/p/69210764"><strong>Link</strong></a>，不过本人还是喜欢用<code>Typora</code>，简洁干净轻量，还有各式各样好看的主题可供选择。</p></div><blockquote><p>[!Note]</p><ul><li>This is my first blog!<ul><li>Hello World!</li><li>[x] Good Job!</li></ul></li></ul></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@jueye ~]<span class="comment"># echo Hello Typora!</span></span><br><span class="line">Hello Typora!</span><br></pre></td></tr></table></figure><p>以本节上方内容为例，<code>Typora</code>里输出的样式如下图所示。</p><p><img src="\blog\WriteBlog\DemoBlog.png" alt="Demo Blog" style="zoom:60%;" /></p><div class="note info modern"><p>针对<code>Markdown</code>语法，后面会出一期专栏进行详解，有兴趣的小伙伴可以多多关注萌雪哦！</p></div><hr><h2 id="页面部署"><a href="#页面部署" class="headerlink" title="页面部署"></a>页面部署</h2><div class="note success modern"><p>页面部署和博客的线上部署步骤一样，已经整理成傻瓜式<a href="/blog/done/#上传博客">点击</a>就送啦！</p></div><div class="note info modern"><p>值得注意的是，md文件内容与本地部署的测试页面是同步更新的，这意味着大家可以在本地边写Blog边刷新网页看成果，简直太欢愉了！</p></div>]]></content>
       
       
       <categories>
