@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>激光扫描系统优化设计</title>
+      <link href="blog/Scanner/"/>
+      <url>blog/Scanner/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="激光扫描系统优化设计"><a href="#激光扫描系统优化设计" class="headerlink" title="激光扫描系统优化设计"></a>激光扫描系统优化设计</h2><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><p>扫描角度：10°</p><p>入瞳直径50 mm</p><p>F/# = 3</p><h3 id="设置系统孔径"><a href="#设置系统孔径" class="headerlink" title="设置系统孔径"></a>设置系统孔径</h3><p><img src="\blog\Scanner\SystemAperture.png?lastModify=1719299754" alt="Aperture Setting" style="zoom:67%;" /></p><h3 id="设置波长"><a href="#设置波长" class="headerlink" title="设置波长"></a>设置波长</h3><p><img src="\blog\Scanner\Wavelength.png?lastModify=1719299874" alt="Wavelength Setting" style="zoom:67%;" /></p><h3 id="镜头数据"><a href="#镜头数据" class="headerlink" title="镜头数据"></a>镜头数据</h3><p>大致输入一些厚度数据。</p><p><img src="\blog\Scanner\LensData0.png?lastModify=1719300042" alt="Lens Data Setting" style="zoom:67%;" /></p><p>输入材料数据，并用F数解控制双胶合透镜后表面曲率。</p><p><img src="\blog\Scanner\LensData1.png?lastModify=1719300391" alt="F/# Setting" style="zoom:67%;" /></p><p>选中第二个面，作为反射面</p><p><img src="\blog\Scanner\Reflector.png?lastModify=1719300532" alt="Reflector" style="zoom:67%;" /></p><p><img src="\blog\Scanner\LensData2.png?lastModify=1719300604" alt="Reflective System" style="zoom:67%;" /></p><h3 id="设置评价函数"><a href="#设置评价函数" class="headerlink" title="设置评价函数"></a>设置评价函数</h3><p>将双胶合透镜的前两个表面曲率设为变量，厚度设为变量，后焦距设为变量，并设置评价函数限制。</p><p><img src="\blog\Scanner\MFE.png?lastModify=1719300843" alt="MFE Setting" style="zoom:67%;" /></p><p>执行优化，更新结构。</p><p><img src="\blog\Scanner\LensData3.png?lastModify=1719300958" alt="Optimized Reflective System" style="zoom:67%;" /></p><h3 id="调整反射面倾角并优化"><a href="#调整反射面倾角并优化" class="headerlink" title="调整反射面倾角并优化"></a>调整反射面倾角并优化</h3><p><img src="\blog\Scanner\Tilt.png?lastModify=1719301455" alt="Tilt Setting" style="zoom:67%;" /></p><p><img src="\blog\Scanner\LensData4.png?lastModify=1719301482" alt="Tilt System" style="zoom:67%;" /></p><h3 id="设置多重结构并优化"><a href="#设置多重结构并优化" class="headerlink" title="设置多重结构并优化"></a>设置多重结构并优化</h3><p>利用PRAM参数控制倾斜面的第三个参数，即倾斜X，实现不用的镜面倾角结构。</p><p><img src="\blog\Scanner\MCE.png?lastModify=1719301762" alt="MCE Setting" style="zoom:67%;" /></p><p>设置三维布局图配置</p><p><img src="\blog\Scanner\3DLayoutConfig.png?lastModify=1719301830" alt="3DLayout Setting" style="zoom:67%;" /></p><p>进行优化，查看弥散斑大小。</p><p><img src="\blog\Scanner\Result.png?lastModify=1719302017" alt="Result" style="zoom:67%;" /></p><p>更改镜头材料参数（材料求解类型设置为替代），进行锤形优化。</p><h3 id="振镜和转镜更换"><a href="#振镜和转镜更换" class="headerlink" title="振镜和转镜更换"></a>振镜和转镜更换</h3><p>设置坐标间断的厚度。</p><p><img src="\blog\Scanner\Pivot.png?lastModify=1719302940" alt="Pivot Mode" style="zoom:67%;" /></p><p>将镜面设置厚度为这里的20，可将旋转轴从镜面前表面调整至后表面。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zemax </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zemax </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Zemax 坐标间断</title>
       <link href="blog/CoordinateBreaks/"/>
       <url>blog/CoordinateBreaks/</url>
