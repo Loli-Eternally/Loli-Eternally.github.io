@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>全局坐标设定及使用方法</title>
+      <link href="blog/GlobleCoordinate/"/>
+      <url>blog/GlobleCoordinate/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="全局坐标设定及使用方法"><a href="#全局坐标设定及使用方法" class="headerlink" title="全局坐标设定及使用方法"></a>全局坐标设定及使用方法</h2><h3 id="系统初始结构"><a href="#系统初始结构" class="headerlink" title="系统初始结构"></a>系统初始结构</h3><ul><li>EPD = 10 mm，余量5 mm。</li><li>无焦像空间（聚焦模式下，计算弥散斑尺寸，计算波前与球面波间的光程差；无焦模式下，计算每条光线和参考光线的空间角度，计算波前与平面波间的光程差）。</li><li>波长 = 0.55  $\mu$m。</li></ul><p><img src="\blog\GlobleCoordinate\LensData0.png?lastModify=1719450617" alt="Initial Configuration" style="zoom:50%;" /></p><h3 id="设置孔径类型和倾斜-偏心"><a href="#设置孔径类型和倾斜-偏心" class="headerlink" title="设置孔径类型和倾斜/偏心"></a>设置孔径类型和倾斜/偏心</h3><p><img src="\blog\GlobleCoordinate\ApertureType.png?lastModify=1719450617" alt="Aperture Type" style="zoom:50%;" /></p><p><img src="\blog\GlobleCoordinate\DecenterTilt.png?lastModify=1719450617" alt="Decenter" style="zoom:50%;" /></p><p>面3孔径拾取自面2，倾斜X轴-15°，面之后翻转此面，设置2-3的材料为N-BK7。</p><p><img src="\blog\GlobleCoordinate\Prism.png?lastModify=1719450617" alt="Prism" style="zoom:50%;" /></p><h3 id="构建以主光线为基准的局部坐标系"><a href="#构建以主光线为基准的局部坐标系" class="headerlink" title="构建以主光线为基准的局部坐标系"></a>构建以主光线为基准的局部坐标系</h3><p>在像面前插入一个坐标间断，修改偏心和倾斜的参数解为主光线。</p><p><img src="\blog\GlobleCoordinate\DecenterainRay.png?lastModify=1719450617" alt="Main Ray Reference" style="zoom:50%;" /></p><p><img src="\blog\GlobleCoordinate\CB.png?lastModify=1719450617" alt="Main Ray CB" style="zoom:50%;" /></p><h3 id="连续构建多个棱镜结构"><a href="#连续构建多个棱镜结构" class="headerlink" title="连续构建多个棱镜结构"></a>连续构建多个棱镜结构</h3><p>多次复制2-4面，在像面前粘贴。</p><p><img src="\blog\GlobleCoordinate\MultiPrism.png?lastModify=1719450617" alt="MUlti-prism" style="zoom:50%;" /></p><p>这里注意，一旦修改某个棱镜的参数，后面所有的棱镜的位置都会发生改变，因为所有参数都是以前一个局部坐标为参考的相对坐标。</p><h3 id="转换为全局坐标系"><a href="#转换为全局坐标系" class="headerlink" title="转换为全局坐标系"></a>转换为全局坐标系</h3><p><img src="\blog\GlobleCoordinate\GlobleCor.png?lastModify=1719450617" alt="Convert to Globle" style="zoom:50%;" /></p><p>这时候Zemax自动添加了很多坐标间断，这里的坐标间断主要为三种。</p><ol><li>以面1为全局参考面，将局部参考系返回至面1所在的参考系。</li><li>局部参考系先偏心（Y方向平移），再加厚度（Z方向平移）。</li><li>局部参考系倾斜X。</li></ol><p>三个坐标间断的具体操作如图所示，由红色大圆圈所示的黑色参考面变换为红色小圆圈所示的橙色参考面。</p><p><img src="\blog\GlobleCoordinate\CorTransform.png?lastModify=1719450617" alt="Coordiante Transform" style="zoom:50%;" /></p><h3 id="改变单个棱镜的参数"><a href="#改变单个棱镜的参数" class="headerlink" title="改变单个棱镜的参数"></a>改变单个棱镜的参数</h3><p>优化→滑块</p><p><img src="\blog\GlobleCoordinate\Slider.png?lastModify=1719450617" alt="Slider" style="zoom:50%;" /></p><p>改变第四个棱镜的Z方向位置，更新光束动画。</p><p><img src="\blog\GlobleCoordinate\Animate.png" alt="Animation" style="zoom:50%;" /></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zemax </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zemax </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>激光扫描系统优化设计</title>
       <link href="blog/Scanner/"/>
       <url>blog/Scanner/</url>
