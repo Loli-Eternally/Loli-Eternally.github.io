@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>牛顿望远镜优化设计</title>
+      <link href="blog/NewtonMacro/"/>
+      <url>blog/NewtonMacro/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="牛顿望远镜优化设计"><a href="#牛顿望远镜优化设计" class="headerlink" title="牛顿望远镜优化设计"></a>牛顿望远镜优化设计</h2><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ul><li>孔径100 mm</li><li>F/# = 8</li><li>总长度1000 mm</li></ul><h3 id="流程步骤"><a href="#流程步骤" class="headerlink" title="流程步骤"></a>流程步骤</h3><ol><li>设置系统孔径、视场、波长和镜头数据。</li><li><p>主反射镜曲率半径求解为F/#（根据孔径值和F/#可以求解出焦距f和曲率半径）。<br><img src="\blog\NewtonMacro\LensData.png" alt="Lens Data 0" style="zoom:50%;" /></p></li><li><p>在物面后插入一个面（厚度设为990），作为望远镜镜筒的入射面，并在三维布局图中更改起始面为1。<br><img src="\blog\NewtonMacro\LensData1.png" alt="Lens Data 1" style="zoom:50%;" /></p></li><li><p>在像面前插入一个折叠镜面，主镜面厚度更改为-700，折叠镜面厚度解设为边缘光线高度解，翻转折叠镜面90度。<br><img src="\blog\NewtonMacro\InitConfig.png" alt="Initial Configuration" style="zoom:50%;" /></p></li><li><p>将主镜面的圆锥系数设为-1，消除球差，查看点列图分析相差，查看MTF。这时的MTF是有问题的，因为光线穿过了折叠反射镜。</p></li><li>设置面1的孔径类型为圆形遮光，最大半径暂时先定为50。打开光迹图查看折叠反射面上各个视场的光斑分布。</li><li><p>为了提升MTF，需要让更多光能够达到像面。根据折叠反射面上的光斑分布，将折叠反射面孔径类型设为椭圆孔径，X半宽27.5，Y半宽39，重新查看光迹图。此时折叠反射面已达最小。<br><img src="\blog\NewtonMacro\RayTraceDiagram.png" alt="Ray Trace Diagram" style="zoom:50%;" /></p></li><li><p>将三维布局图调整至X-Y视图，更改面1圆形遮光的最大半径与折叠反射镜在XY面上的投影半径一致，可以略大（28）。</p></li><li>查看此时的MTF，相对开始设定的50遮光半径有明显提升。<br><img src="\blog\NewtonMacro\Result.png" alt="Result" style="zoom:50%;" /></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Zemax </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Zemax </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>全局坐标设定及使用方法</title>
       <link href="blog/GlobleCoordinate/"/>
       <url>blog/GlobleCoordinate/</url>
