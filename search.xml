@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>视场和孔径</title>
+      <link href="blog/FOVandAperture/"/>
+      <url>blog/FOVandAperture/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="大视场、小视场，大孔径、小孔径到底是什么？">大视场、小视场，大孔径、小孔径到底是什么？</h2><blockquote><p>视场分五种类型：角度，物高，近轴像高，实际像高和经纬角。</p></blockquote><ol><li><p>角度是最常用的视场度量，角度越大，从无穷远入射的光束覆盖的物方区域越广（相同距离下扫过的面积越大），同样的道理，物高代表了物方区域即你想看到的范围。</p></li><li><p>近轴像高和实际像高是从像方的角度来定义视场大小。近轴像高表示以某种角度入射的平行光束用近轴光线追迹的理想像点高度，这个高度与前面的角度视场成一种映射关系，确定了像面高度就确定了入射视场，同样的道理，实际像高表示实际像点的高度，追迹用的实际光线（主光线）追迹，但追迹到的像面是人为按需求设定的。</p></li><li><p>最后一个经纬角与角度类似，但是以球坐标的形式表示方向，角度类型的角的正切分母为Z轴长度，而经纬角的角的正切分母为光线在弧矢面投影的长度。</p></li><li><p>大视场意味着等待成像的物方区域更大更广，意味着成像系统距离物体相同的距离时，所成的像能覆盖更多的物体范围。</p></li></ol><blockquote><p>孔径分为六种类型：入瞳直径，像方空间F/#，物方空间NA，光阑尺寸浮动，近轴工作F/#和物方锥角。</p></blockquote><ol><li>入瞳直径是最常用的孔径度量，入瞳越大，允许从无穷远入射的光束越宽（数值上等于光束宽度，更多能量进入光学系统）。</li><li>像方空间F/#是从像方的角度来定义入瞳，当F/#确定后，根据近轴像面位置可以确定像方有效焦距，从而映射一个确定的入瞳直径（F/#=f/D，相对孔径D/f的倒数）。</li><li>物方空间NA是定义孔径接收物方点源发光立体角的度量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">N</mi><mi mathvariant="normal">A</mi></mrow><mo>=</mo><msub><mi>n</mi><mn>1</mn></msub><mi>sin</mi><mo>⁡</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\mathrm{NA}=n_1\sin\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">NA</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">n_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是物方介质材料的折射率，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>是物方倾斜角。当物方空间NA确定后，入瞳处接收物方点源立体光锥的孔径大小就确定了（注意此时的物方不在无穷远，而是有一定的厚度）。</li><li>光阑浮动尺寸是将孔径光阑大小固定，不定入瞳直径，意味着从物方射过来的光只需要将孔径光阑填满，从而映射一个确定的入瞳直径。</li><li>近轴工作F/#是确定近轴的F/#后，也就是确定了近轴光圈数后反向映射一个入瞳直径，获得在满足确定的相对孔径下的入瞳大小。</li><li>物方锥角与物方空间NA类似，需要物面有限远，不同的是NA给的计算公式，这里直接给物方的锥角（注意都是半角）。</li><li>大孔径意味着入射进光学系统的光束越多。当物体上某个点发出的任何一束光最终都能完美汇聚到空间中的另一个点，那么这个点就是完美像点（完全不丢失能量和信息）。但由于光学系统是一个衍射受限系统，并不是所有的光都能通过光学系统，这意味着成像必定伴随损耗，信息必定部分丢失。将孔径比作一扇窗户，视场比作视线范围，当窗户够大，视线范围更广，你才能看到更多的风景！</li></ol><h2 id="什么是远心光学系统？为什么要有这种系统？">什么是远心光学系统？为什么要有这种系统？</h2><p><strong>所谓远心，指的是主光线会聚中心在无穷远处，此时的主光线平行于光轴的光学系统</strong>。这种系统主要作用是纠正视差，它可以让图像的放大倍率在一定物距范围内不随物距变化而变化。例如测量不在同一平面上的微结构尺寸，由于景深的存在，人在视觉上认为两个平面上的结构尺寸一样，但实际不同平面的放大倍率不同，这种视觉误差称为视差。</p><ol><li>物方远心镜头是将孔径光阑放置在光学系统的像方焦平面上，即使物距发生改变，像距随之改变，但固定在初始物距对应的像面处的主光线高度没有发生改变（该位置从初始物距下的像点变成了一个改变物距后的投影像斑（像距变了，之前位置的面上留下的斑））。正是依靠主光线高度不变这一机制，当镜头存在景深时，不同物距处成的像在固定好的探测器像面上会有相同的高度（像点不一定是最小的弥散斑但也超过人眼分辨能力）。<strong>核心思想是通过挑选主光线并限制边缘光线成像来校正视差。</strong><br><img src="\blog\FOVandAperture\TOS.png" alt="TOS Schematic Diagram" style="zoom:33%;" /></li><li>像方远心镜头是将孔径光阑放置在光学系统的物方焦平面上，使像方主光线平行于光轴。这样即便像面位置改变，像面上的像高不变，只有改变物距时，像高才会发生变化（倍率发生变化），这也是大地测量仪的工作原理。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Theory </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Optics </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>光学系统设计及像差校正</title>
       <link href="blog/AberrCalibra/"/>
       <url>blog/AberrCalibra/</url>
