@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SERDES 技术 | 雪萌阁</title><meta name="keywords" content="雪萌阁"><meta name="author" content="萌雪"><meta name="copyright" content="萌雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SERDES 技术 SerDes技术是用于高速串行链路中的技术，是一种主流的时分多路复用（TDM）、点对点（P2P）串行通信技术。Ser代表串化器（Serializer），Des代表解串器（Deserializer），主要功能是将低速并行信号转化为高速低压拆分信号（LVDS）并通过串行里链路发送，同时能够接收串行输入LVDS信号并正确转化为低速并行信号，简单来讲就是并串与串并的转化。目前SERDE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SERDES 技术">
+<meta property="og:url" content="https://gongjue.fun/blog/SERDESTech/index.html">
+<meta property="og:site_name" content="雪萌阁">
+<meta property="og:description" content="SERDES 技术 SerDes技术是用于高速串行链路中的技术，是一种主流的时分多路复用（TDM）、点对点（P2P）串行通信技术。Ser代表串化器（Serializer），Des代表解串器（Deserializer），主要功能是将低速并行信号转化为高速低压拆分信号（LVDS）并通过串行里链路发送，同时能够接收串行输入LVDS信号并正确转化为低速并行信号，简单来讲就是并串与串并的转化。目前SERDE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gongjue.fun/blog/SERDESTech/cover.jpg">
+<meta property="article:published_time" content="2024-09-20T01:41:43.000Z">
+<meta property="article:modified_time" content="2024-09-20T01:53:09.041Z">
+<meta property="article:author" content="萌雪">
+<meta property="article:tag" content="雪萌阁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gongjue.fun/blog/SERDESTech/cover.jpg"><link rel="shortcut icon" href="/media/favicon.png"><link rel="canonical" href="https://gongjue.fun/blog/SERDESTech/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SERDES 技术',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 09:53:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/blog/SERDESTech/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">雪萌阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SERDES 技术</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-20T01:41:43.000Z" title="发表于 2024-09-20 09:41:43">2024-09-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-20T01:53:09.041Z" title="更新于 2024-09-20 09:53:09">2024-09-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SERDES 技术"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="SERDES-技术">SERDES 技术</h2>
+<p>SerDes技术是用于高速串行链路中的技术，是一种主流的时分多路复用（TDM）、点对点（P2P）串行通信技术。Ser代表串化器（Serializer），Des代表解串器（Deserializer），主要功能是将低速并行信号转化为高速低压拆分信号（LVDS）并通过串行里链路发送，同时能够接收串行输入LVDS信号并正确转化为低速并行信号，简单来讲就是并串与串并的转化。目前SERDES的应用，主要有Chip2Chip，Board2Board，Box2Box等形式，在大型数据中心，通信骨干网络，消费电子场景下有广泛应用。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SERDESTech\SERDES_Appl.png" alt="(a) Chip2Chip (b) Board2Board (c) Box2Box" style="zoom: 50%;"></center>
+<h3 id="SERDES-背景知识">SERDES 背景知识</h3>
+<ol>
+<li>
+<p><strong>差分传输技术LVDS：</strong></p>
+<p>区别于传统一根信号线一根地线的做法，差分传输在两根线上都传输信号，两个信号振幅相同，相位相反，两根线上的传输信号即为差分信号。信号接收端通过比较两个电压的差值来判断发送端发送信息的逻辑状态。LVDS是一种低摆幅的差分信号技术，高速且低功耗，抗干扰能力强，外界的共模噪声可以被完全抵消。</p>
+</li>
+<li>
+<p><strong>串/并口技术与芯片同步技术：</strong></p>
+<p>数据传输最开始是低速串行接口（Serial Interface）简称串口，为了提高数据总带宽，人们首先想到的是增加数据的位宽，提升传输速率，故而引入了并行接口（Parallel Interface）简称并口。但随着并口发展，并口限制也逐渐凸显：</p>
+<ol>
+<li>芯片IO口数量紧张；</li>
+<li>并口数据率提升过程中引入的串扰（Cross-Talk）和同步切换噪声（SSN=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>⋅</mo><mi>N</mi><mfrac><mrow><mi>d</mi><mi>i</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">L\cdot N\frac{di}{dt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，L指芯片封装电感，N指数据位宽，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>i</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{di}{dt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>指电流变化率）使得数据同步越来越困难。</li>
+</ol>
+<p>因此高速串口技术重新得到发展。<br>
+串并口的演进是交替发展的。串口典型代表是通用串行总线（Universal Serial Bus，USB），并口有DDR SDRAM（Double Data Rate Synchronous Dynamic Random Access Memory，DDRx）。SerDes虽然是串口技术，也可以多通道并行使用，比如PCIe协议的x4、x8、x16模式，但需要考虑多通道对齐的问题。高速串口未来的发展趋势是提升单通道速度和多通道并行相结合。</p>
+</li>
+<li>
+<p><strong>芯片同步技术：</strong></p>
+<p>大部分数字电路都采用同步电路模式，即系统中有一个统一的时钟对信号进行采样。芯片与芯片间的同步接口通信有三种时序模型：1. 系统同步；2. 源同步；3. 自同步。系统同步指的是外接时钟信号对信源和信宿进行同步；源同步指的是信源发送数据至FPGA后，FPGA生成一个伴随时钟信号提供给信宿进行同步；自同步指的是信源芯片自身提供时钟信号同步，自同步接口的三个主要模块分别是并串转换、串并转换、时钟数据恢复，即SerDes技术的主要实现方式。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SERDESTech\C2CST.png" alt="同步通信的三种时序模型" style="zoom:13%;"></center>
+<p>速率较低时系统同步即可满足要求，但随着速率提升，严格的时序要求使用源同步或自同步。</p>
+</li>
+<li>
+<p><strong>8B/10B编码技术：</strong></p>
+<p>该技术主要解决的问题是<strong>实现直流均衡</strong>。信号频率越高，电容阻抗越低，但当数据位流中出现多个连续的1或0时，该时间段信号可认为是直流，电容损耗变大，导致信宿端接收到的信号幅度降低，无法识别0还是1。而且信宿端接收到连续的0或1时，没有充分定时信息，对解码带来困难。8B/10B编码技术通过将原8位信号拆解成3位和5位，并通过3B/4B、5B/6B编码映射成一个4位和一个6位信号，再根据编码表平衡实际传输信号中的0和1的数量。该编码通过引入极性偏差（Running Disparity，RD）来判断编码后0和1谁多，通过RD来决定4位信号与6位信号该如何组合，共同形成一个实际传输的10位信号，从而缓解长0或长1信号的目的。</p>
+</li>
+<li>
+<p><strong>锁相环（PLL）：</strong></p>
+<p>由鉴相器（Phase Discriminator，PD），环路滤波器（Loop Filter，LF），和压控振荡器（Voltage-Controlled Oscillator，VCO）构成。同时内部还有一个反馈路径（Feedback Path）构成一个环电路，故而称为锁相环。锁相环最早在20世纪30年代被提出，广泛用于电子系统中，提供稳定信号频率、相位和时序的功能。在数字电路和通信领域，PLL可以用来提取、跟踪、复原和生成特定频率的信号，以实现数据同步、时钟分配和频率调整（8x、20x、40x模式多倍频）等功能。</p>
+</li>
+</ol>
+<h3 id="SERDES-介绍">SERDES 介绍</h3>
+<p>一个完整的8B/10B SERDES模块如下，其中Serializer由8B/10B编码器、PRBS码生成器、串并转换电路、差分信号发送器、PLL等模块构成；Deserializer则由差分信号接收器、CDR、串并转换电路和8B/10B解码器构成，整体结构如下</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SERDESTech\8B10B.png" alt="8B/10B SERDES模型" style="zoom:67%;"></center>
+<p>SERDES接口简化示意图如下</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SERDESTech\SERDES.png" alt="SERDES接口简化模型" style="zoom:50%;"></center>
+<p>时钟速率位125 MHz的8位并行数据，经过复用器芯片时分复用到1位的数据线上，转化为1 Gbps的1位串行数据。该数据经过发送器Tx，通道Channel，再到接收器Rx处理后仍为1 Gbps，解串后恢复为初始125 MHz的8位并行数据。</p>
+<ol>
+<li>
+<p><strong>时钟数据生成与恢复：</strong></p>
+<p>最高10 Gbps的数据率，内部需要至少10 GHz的时钟（Single Data Rate，SDR）或者5 GHz的时钟（Double Data Rate，DDR）。SERDES内部依靠PLL实现频率稳定，同步控制与时钟数据恢复（Clock Data Recovery，CDR），降低时间抖动jitter。CDR的功能：通过调整本地时钟的相位完成对带有信道损耗（Channel Loss）和各级模块噪声（Noise）的接收Tx串行数据的重定位，找到最佳采样时刻，使Rx本地时钟边沿与接收Tx数据中心位置对齐，实现最佳采样。</p>
+</li>
+<li>
+<p><strong>预加重（Pre-Emphasis）和去加重（De-Emphasis）：</strong></p>
+<p>预加重和去加重都是在发送端对输入信号高频分量进行补偿的信号处理方式（与预均衡Tx-EQ等价）。一般的SERDES结构中，发送端有预加重模块（加重器），接收端有均衡模块。预加重是通过加大信号的上升沿和下降沿幅度来增强信号高频分量，去加重是通过保持上升沿下降沿幅度不变，降低其他地方幅度来实现信号高频分量相比低频分量增大。去加重补偿后信号摆幅比预加重更小，眼图高度低功耗小，电磁辐射小。</p>
+</li>
+<li>
+<p><strong>均衡器（Equalizer，EQ）：</strong></p>
+<ul>
+<li>
+<p>由于信号速率不断提高且信息传输架构需要更长的传输链路，高速信号的趋肤效应和传输导线介质损耗导致高频信号在传输过程中衰减很快，Tx发送端发送的数据由于码间干扰（Inter-Symbol Interference）导致信号在Rx接收端失真严重，眼图闭合。</p>
+</li>
+<li>
+<p>均衡器的作用就是均衡信道的衰减，缓解码间干扰，通过高通滤波器补偿信道的低通特性，将脉冲响应信号重新塑形，把能量限制在一个单位时间间隔（1 Unit Interval，1UI）内，从而把数据正确恢复出来，让闭合的眼图睁开。均衡技术主要有三种：连续时间线性均衡（Continuous Time Linear Equalizer，CTLE），判决反馈均衡（Decision Feedback Equalizer，DFE）和前馈均衡（Feed Forward Equalizer，FFE）。</p>
+</li>
+<li>
+<p>前馈均衡（FFE）：为了缓解接收端均衡的压力，通常SERDES的发送端会使用FFE对信号进行预均衡（预加重或去加重）。FFE通过有限冲激响应滤波器实现，即将延时信号按不同权重叠加，控制权重大小调整均衡强度。<strong>FFE的实质是使用数字线性高通滤波器提高信号的高频分量，实现信道补偿</strong>。然而对于发送机而言，其输出最大摆幅受限于电源电压，因此0到1或1到0的跳转电压程度无法被无限放大，这会导致信号的实际摆幅随FFE均衡强度提高而减小。因此在实际设计中，为了保证信号实际摆幅，FFE均衡强度小于10 dB。</p>
+</li>
+<li>
+<p>连续时间线性均衡（CTLE）：<strong>本质是直接通过模拟高通滤波器拟合信道的衰减，实现信道补偿</strong>。信道的频率响应可以看作一个低通滤波器，因此将信道与高通滤波器串联就能得到一个全通滤波器。实际的模拟电路中并不存在高通滤波器，但只要保证关心的带宽内呈现高通特性即可满足均衡要求。需要注意CTLE电路是通过减小低频信号的方式补偿高低频的衰减差，因此会和放大器配合使用，其缺点是在放大高频信号的同时放大高频噪声，降低信噪比，往往伴随巨大的面积和功耗开销。</p>
+</li>
+<li>
+<p>判决反馈均衡（DFE）：本质与FFE类似，也是通过数字高频滤波器实现高频信号分量的增强，各个支路的权重决定了均衡的强度。但与FFE不同的是DFE为一种<strong>非线性均衡技术</strong>：判决后的信号为数字信号而非原输入信号经过时延得到。因此DFE可以<strong>只放大高频信号而不放大高频噪声</strong>。</p>
+</li>
+</ul>
+<p>为了将数据正确恢复出来，需要通过均衡器均衡信道的衰减，减小数据的码间干扰。Tx端的预均衡（Pre-Equalizer）通常用FFE结构实现预加重，Rx端采用CTLE和DFE串接的方式实现信号均衡和恢复，如下图所示</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SERDESTech\EQT.png" alt="SERDES接口简化模型" style="zoom:10%;"></center>
+</li>
+</ol>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/blog/SERDESTech/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/media/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/SkinEffectandEyeDiagram/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SkinEffectandEyeDiagram/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">趋肤效应与眼图</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">萌雪</div><div class="author-info__description">这里是雪萌教总部哦！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Loli-Eternally"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:mr.gongjue@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/Loli-Eternally" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SERDES-%E6%8A%80%E6%9C%AF"><span class="toc-number">1.</span> <span class="toc-text">SERDES 技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SERDES-%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">SERDES 背景知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SERDES-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">SERDES 介绍</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blog/SERDESTech/" title="SERDES 技术"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SERDESTech/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SERDES 技术"/></a><div class="content"><a class="title" href="/blog/SERDESTech/" title="SERDES 技术">SERDES 技术</a><time datetime="2024-09-20T01:41:43.000Z" title="发表于 2024-09-20 09:41:43">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SkinEffectandEyeDiagram/" title="趋肤效应与眼图"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SkinEffectandEyeDiagram/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="趋肤效应与眼图"/></a><div class="content"><a class="title" href="/blog/SkinEffectandEyeDiagram/" title="趋肤效应与眼图">趋肤效应与眼图</a><time datetime="2024-09-20T01:25:38.000Z" title="发表于 2024-09-20 09:25:38">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ImpedanceMatching/" title="S参数与阻抗匹配"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ImpedanceMatching/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="S参数与阻抗匹配"/></a><div class="content"><a class="title" href="/blog/ImpedanceMatching/" title="S参数与阻抗匹配">S参数与阻抗匹配</a><time datetime="2024-09-11T01:17:10.000Z" title="发表于 2024-09-11 09:17:10">2024-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ZemaxPOP/" title="Zemax 物理光学传播"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ZemaxPOP/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zemax 物理光学传播"/></a><div class="content"><a class="title" href="/blog/ZemaxPOP/" title="Zemax 物理光学传播">Zemax 物理光学传播</a><time datetime="2024-08-28T03:16:12.000Z" title="发表于 2024-08-28 11:16:12">2024-08-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SeidelAberr/" title="赛德尔像差理论"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SeidelAberr/SingleSurfCover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="赛德尔像差理论"/></a><div class="content"><a class="title" href="/blog/SeidelAberr/" title="赛德尔像差理论">赛德尔像差理论</a><time datetime="2024-08-24T15:25:10.000Z" title="发表于 2024-08-24 23:25:10">2024-08-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 萌雪</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= '/css/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '19b525626faaad8e4e45',
+      clientSecret: '07cefab0dc83cedc869a419770e1dede6c19a38d',
+      repo: 'loli-eternally.github.io',
+      owner: 'Loli-Eternally',
+      admin: ['Loli-Eternally'],
+      id: '4ae2c8a1806e3aaa7df05779a0f1f417',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: true,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="9723909579" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="auto" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2d_models/assets/wanko.model.json"},"display":{"position":"left","width":100,"height":150,"hOffset":-10,"vOffset":40},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
