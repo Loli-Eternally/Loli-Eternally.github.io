@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>VPI中调用ADS模块进行联合仿真</title>
+      <link href="blog/ADS-cosim-VPI/"/>
+      <url>blog/ADS-cosim-VPI/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="ADS-模块">ADS 模块</h2><p>VPI中使用ADS接口模块需要保证：</p><ol><li><p>ADS的版本为2021，VPIphotonics版本为11.1；</p></li><li><p>在环境变量中添加两个ADS的路径：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;ADS installation directory&gt;\bin</span><br><span class="line">&lt;ADS installation directory&gt;\adsptolemy\lib.win32. </span><br></pre></td></tr></table></figure></li></ol><p>如果能跑通Simulation Techniques <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⇒</mo></mrow><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">⇒</span></span></span></span> Cosimulation <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⇒</mo></mrow><annotation encoding="application/x-tex">\Rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">⇒</span></span></span></span> ADS中的Demo，则表示联合仿真可行。</p><p>只跑通Demo可远远不够，需要跑通自己定义的ADS模型才算实现真正意义上的联合仿真。</p><h3 id="创建ADS模板文件">创建ADS模板文件</h3><ol><li><p>在希望调用ADS模块vtmu工程的Input文件夹内New一个MyWorkspace，New一个Schematic。这个Schematic作为TestBench放在最顶层，同时也作为VPI与ADS的接口；</p></li><li><p>在ADS中找到TimedDataRead和TimedDataWrite两个Parts，用于VPI与ADS之间的数据传输；</p></li><li><p>在ADS中找到DF控制器并设置；</p></li><li><p>New一个器件的Schematic，作为ADS中的主体，里面包含全部功能。这里仅添加输入和输出的引脚，并设置Transient仿真器；</p><center><img src="\blog\ADS-cosim-VPI\Tran.png" alt="Transient Simulation" style="zoom:67%;" /></center></li><li><p>给模型设置参数，使得可以从顶层Schematic传参进器件Schematic内部;</p><center><img src="\blog\ADS-cosim-VPI\Parameter.png" alt="Parameter Setting" style="zoom:67%;" /></center></li><li><p>给器件的Schematic设置一个Symbol，拖动到最顶层TestBench内，与数据接口连接；</p><center><img src="\blog\ADS-cosim-VPI\DUT.png" alt="DUT" style="zoom:67%;" /></center></li><li><p>在TestBench中生成一个Netlist，可以看到Workspace中多了一个netlist.log文件；</p><center><img src="\blog\ADS-cosim-VPI\Netlist.png" alt="Netlist" style="zoom:67%;" /></center></li><li><p>在文件夹中创建一个TC_ADSInSignal1.tim文件，文件名与接口所需文件名保持一致(或直接将Demo中的tim文件复制过来，注意输入几个端口，名称应该按照TC_ADSInSignal几.tim来，对应TC_ADSOutSignal几.tim)；</p></li><li><p>在TC_ADSInSignal1.tim文件夹内打开cmd，运行<code>hpeesofsim netlist.log</code>指令；</p><center><img src="\blog\ADS-cosim-VPI\netlistlog.png" alt="netlist.log" style="zoom:67%;" /></center><h3 id="在VPI中运行ADS模板文件">在VPI中运行ADS模板文件</h3><p>回到VPI里添加ADS模块，将N_Inputs和N_Outputs设置为1并运行，得到上述例子ADS纯接线的结果与不添加ADS的结果保持一致（下图是输入前和输入后的）。</p><center><img src="\blog\ADS-cosim-VPI\VPI-ADS.png" alt="VPI-ADS Cosim" style="zoom:67%;" /></center><center><img src="\blog\ADS-cosim-VPI\Output.png" alt="Results" style="zoom:67%;" /></center></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> VPI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VPI </tag>
+            
+            <tag> ADS </tag>
+            
+            <tag> Electronics </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>正交幅度调制 QAM</title>
       <link href="blog/QAM/"/>
       <url>blog/QAM/</url>
