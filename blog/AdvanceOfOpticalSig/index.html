@@ -1,0 +1,974 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高级信号模式与表示法 | 雪萌阁</title><meta name="keywords" content="VPI,Optics"><meta name="author" content="萌雪"><meta name="copyright" content="萌雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="高级信号模式与表示法  正如前面基本信号模式与表示法所述，真实世界信号的表示对于模型的性能至关重要。在表示信号时， 应舍弃不必要的细节，同时高效地体现重要的物理现象。此处介绍的信号模式和表示形式是上一章所介绍的基本（块模式）单频带（SFB）的自然扩展。  信号模式与表示法综述 VPI具有两种信号模式，即块模式和采样模式，它们 定义了模块之间数据的传递方式。在每种模式下，都有信号表示形式，用于定义光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级信号模式与表示法">
+<meta property="og:url" content="https://gongjue.fun/blog/AdvanceOfOpticalSig/index.html">
+<meta property="og:site_name" content="雪萌阁">
+<meta property="og:description" content="高级信号模式与表示法  正如前面基本信号模式与表示法所述，真实世界信号的表示对于模型的性能至关重要。在表示信号时， 应舍弃不必要的细节，同时高效地体现重要的物理现象。此处介绍的信号模式和表示形式是上一章所介绍的基本（块模式）单频带（SFB）的自然扩展。  信号模式与表示法综述 VPI具有两种信号模式，即块模式和采样模式，它们 定义了模块之间数据的传递方式。在每种模式下，都有信号表示形式，用于定义光">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gongjue.fun/blog/AdvanceOfOpticalSig/cover.jpg">
+<meta property="article:published_time" content="2025-02-26T07:03:51.000Z">
+<meta property="article:modified_time" content="2025-02-26T12:45:51.654Z">
+<meta property="article:author" content="萌雪">
+<meta property="article:tag" content="VPI">
+<meta property="article:tag" content="Optics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gongjue.fun/blog/AdvanceOfOpticalSig/cover.jpg"><link rel="shortcut icon" href="/media/favicon.png"><link rel="canonical" href="https://gongjue.fun/blog/AdvanceOfOpticalSig/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '高级信号模式与表示法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-26 20:45:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/blog/AdvanceOfOpticalSig/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">雪萌阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">高级信号模式与表示法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-26T07:03:51.000Z" title="发表于 2025-02-26 15:03:51">2025-02-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-26T12:45:51.654Z" title="更新于 2025-02-26 20:45:51">2025-02-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Theory/">Theory</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">20.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>61分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="高级信号模式与表示法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>高级信号模式与表示法</h1>
+<blockquote>
+<p>正如前面基本信号模式与表示法所述，真实世界信号的表示对于模型的性能至关重要。在表示信号时， 应舍弃不必要的细节，同时高效地体现重要的物理现象。此处介绍的信号模式和表示形式是上一章所介绍的基本（块模式）单频带（SFB）的自然扩展。</p>
+</blockquote>
+<h2 id="信号模式与表示法综述">信号模式与表示法综述</h2>
+<p>VPI具有两种信号模式，即块模式和采样模式，它们 定义了模块之间数据的传递方式。在每种模式下，都有信号表示形式，用于定义光信号的描述格式。采样模式有一种信号表示形式，而块模式有四种。下图展示了信号模式与表示形式之间的关系。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SignalMode.png" alt="信号模式的分类及其表现形式" style="zoom:55%;"></center>
+<p>根据上图，根分支表明了VPI信号的两种模式：</p>
+<ul>
+<li>当需要考虑紧密耦合组件之间的双向交互时，会使用采样模式。它在每次迭代时双向传递数据。每次迭代代表皮秒级的时间切片。因此，采样模式主要适用于对紧凑型光学器件和光子电路进行详细建模。出于这个原因，它主要在 <code>VPIcomponentMaker</code> 光子电路中使用。</li>
+<li>如果信号单向传输，或者在诸如发射机、光纤、放大器等相隔较远的组件之间的双向链路中传输，且传输延迟远大于数据块的持续时间，则使用块模式。模块之间以数据块的形式传递数据，每个数据块通常代表多个符号或脉冲。这种信号模式主要适用于 <code>VPItransmissionMaker</code> 光学系统和 <code>VPIcomponentMaker</code> 光纤应用。</li>
+</ul>
+<p>块模式有四种子表示形式，其效率各不相同。它们都包含偏振信息。这些子表示形式可以同时用于组件之间的通信。块模式中的表示形式要么将信号表示为光场的样本，要么表示为信号的统计描述。光场表示形式之间关系密切，它们是：</p>
+<ul>
+<li>
+<p>单频带（SFB）是指所有调制的光载波由一个单一的连续频带表示。该频带代表了两个偏振态下的总采样光场信号。单个光发射机（或光源）将产生一个单频带。 当两个或多个光源组合时，各个频带将会：</p>
+<ul>
+<li>如果它们的模拟带宽重叠，则合并为一个新的单一频带；</li>
+<li>若其模拟带宽不重叠（即采样率 &lt; 信道间隔），则形成多频带信号（MFB）。</li>
+</ul>
+<p>将各信源合并到一个频带意味着所有信道间的相互作用都以最通用的方式进行计算。这是块模式中最常见和最通用的方法。</p>
+</li>
+<li>
+<p>当多个单一频带组合在一起但其频谱不重叠时，就会产生多频带（MFB）信号。 在这种情况下，每个信号都通过单独的采样光场进行传播，并标记其中心频率。 各信道之间的相互作用的全部细节必须通过近似方法来计算。波分复用（WDM）系统的多频带表示比单频带表示更高效。多频带信号可以使用 <code>JoinBands</code> 模块或光纤模块内的设置转换为单频带信号。</p>
+</li>
+</ul>
+<p>块模式中的统计表示形式为：</p>
+<ul>
+<li>参数化信号（Parameterized Signals）是基于对光信号的不完整信息（包括：中心频率、等效带宽和偏振态）对信道进行的时间平均描述。然而，对于这种信号类型，无法获取光脉冲流的波形。畸变是一种特殊的参数化信号：会导致信号质量下降的寄生信号。</li>
+<li>噪声箱（Noise Bins），基于频域中噪声箱的表示法将噪声与信号区分开来。噪声箱的表示方式与参数化信号（包括极化）的表示方式类似。主要区别在于噪声箱定义的是噪声功率密度，而非由参数化信号定义的信道功率。</li>
+</ul>
+<p>多模信号提供了一种特殊的块信号表示的超集，它描述了电磁波在多模波导和光纤中的传播情况。多模信号最重要的特性在于它们能够在重叠的频率范围内支持多个信号。</p>
+<h3 id="混合信号表示法">混合信号表示法</h3>
+<p>采样模式和块模式可以在一个仿真中混合使用，但不能在两个模块之间的同一连接中同时使用。在块模式中，所有的表示形式都可以在单个仿真中一起使用，也可以在两个模块之间的连接中同时使用。请注意，统计信号被置于块模式下，因为它们可以与光场样本块一起传递。</p>
+<h3 id="选择模式和表现形式">选择模式和表现形式</h3>
+<p>信号表示形式通常在信号源处通过设置选项来选定。例如，<code>OutputDataType</code> 选项可在以下之间进行选择：</p>
+<ul>
+<li>块模式（<code>OutputDataType=BLOCKS</code>）;</li>
+<li>采样模式（<code>OutputDataType=SAMPLES</code>）;</li>
+<li>参数化信号（<code>OutputDataType=Parameterized</code>）。</li>
+</ul>
+<p>几乎所有模块都将采用块模式运行。当输出数据类型设置为块模式（BLOCKS）时， 模块可根据全局参数 <code>InBandNoiseBins</code> 的设置同时创建 SFB 和噪声频带。</p>
+<p>通常，多个频带是通过组合 SFB 模块的输出来创建的。一般来说，只有详细的组件模型才能生成或处理样本模式信号。多模信号通常是通过使用专用模块组合多个单模信号来创建的。</p>
+<h3 id="光谱中的信号表示">光谱中的信号表示</h3>
+<p>一种描绘分段模式信号应用的方法是将其视为覆盖待建模的光谱范围，如下图所示。 单个频率段可用于覆盖各信道间存在较大相互作用的光谱区域，以及需要对调制光载 波中的光数据进行分析的区域。使用多个单个频率段的这种做法被称为多频带仿真。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SignalsinVPI\SignalFormats.png" alt="VPI中各种信号的表示" style="zoom:80%;"></center>
+<ul>
+<li>参数化信号仅表示信号的功率（尽管它们也可用于表示 RZ 脉冲统计量）。</li>
+<li>畸变是一种参数化信号，用于表示由于瑞利散射和布里渊散射等效应而产生的“不想要的”光场。</li>
+<li>噪声箱能以非常高效的方式表示系统中的宽带噪声，采用的是粗略的频率网格。在讨论了样本模式和块模式之后，会给出更多细节。</li>
+</ul>
+<h2 id="块模式的优点">块模式的优点</h2>
+<h3 id="单向传播以提高效率">单向传播以提高效率</h3>
+<p>对于系统设计而言，通常只考虑“前向”信号流即可，即从发射端到接收端。这是因为大多数高速系统使用光隔离器来阻止反向波的传播（在放大器和发射激光器处）。将仿真限制在前向传播，使得可以采用能显著提高仿真效率的仿真技术。例如，数据可以以块（或向量）的形式在系统中传递，代表在指定时间间隔内的时间序列或波形。因此，例如，发射机模型可以在给定的时间窗口内模拟发射机的操作，并在一次操作中将结果传递给光纤模型。</p>
+<p>此外，如果要模拟的系统时间间隔是预先确定的（比如 128 个数据符号），那么在模拟过程中，每个组件模型只需运行（计算）一次。因此，在给定的时间内，系统中只有一个模型在运行。例如，激光模型会计算 128 个符号的光波形，将其输出作为一个数据块传递给光纤模型，光纤模型对数据块进行处理后再传递给接收器模型。 计算的顺序为：激光、光纤、放大器、接收器，如下图所示。由于单向波传播假设中隐含的隔离器，激光不会受到光纤模型计算结果的影响，所以在光纤计算期间激光是“关闭”的。这可能是一个微不足道的概念，但与双向建模相比却很重要。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\SignalsinVPI\BlockMode.png" style="zoom:80%;"></center>
+<h3 id="稳态效率分析">稳态效率分析</h3>
+<p>进一步提高计算效率的一种可能的方法是假设在仿真区间内（在一个块内）的波形为一个周期性波形，即重复该区间，如下图所示。这种假设分析被称为稳态分析，它使得仿真能够使用高效的快速傅里叶变换技术。这也意味着仿真区间之外的数据（例如由于光纤色散）不会丢失，而是环绕到块的开头。这是合理的，因为相同的数据会从上一个周期进入当前周期。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\StationaryAnalysis.png" alt="仿真的周期性边界条件" style="zoom:50%;"></center>
+<p>总之，单向传播的近似通过以下方式提高了计算效率：以块模式传递数据，每次仅需一个模型运行，并能够使用稳态分析技术。正因如此，大多数光通信系统的模拟器都采用仅正向传播的近似方法（然而，为了与双向仿真灵活对接，并非总是假定数据是周期性的。对于双向系统，需要前后模块时延大于仿真时间窗口才能使用块模式进行建模）。</p>
+<h2 id="块模式信号表示">块模式信号表示</h2>
+<h3 id="单频带（SFB）">单频带（SFB）</h3>
+<p>单频带是最通用的块模式信号表示形式，构成了大多数模拟的基础。 单频带对光纤的模拟将涵盖所有四波混频效应以及噪声与信号的相互作用。然而，通过将单频带与其他块模式信号格式结合使用，可以实现更高的效率。</p>
+<h3 id="多频带（MFB）">多频带（MFB）</h3>
+<p>首先从总体上来看，多个频带可以被视为在不同载波频率上具有不同带宽的多个单频带。当光频带中仅稀疏地存在调制载波时，多个频带可以降低计算需求。一个很好的例子是在粗波分复用（CWDM）系统中，低数据率信道间隔为 20 纳米。 对于此类系统，光谱可以围绕单个或一组光载波分成若干频带。对于不感兴趣的频率范围，即信号能量较低的区域，可以忽略不计，这样整个覆盖的光谱就可以视为不连续的。或者，这些区域可以用参数化信号或噪声区间粗略表示。 在用多频带（MFB）表示光纤色散零点周围的带隙时应谨慎，因为即使这些带隙间隔很远，它们之间也可能存在强烈的相互作用。</p>
+<h3 id="创建多个频带">创建多个频带</h3>
+<p>通过使用多路复用器或耦合器将多个 SFB 源的输出进行组合，从而创建多个频带。如果各个源的采样率小于源的信道间隔，则会自动创建 MFB。然而，如果  MFB 重叠，它们将合并为一个频率带。所选的单个采样频带带宽应足够大，以保留调制的高频谐波。例如，在波分复用 （WDM）频谱中，如果信道间隔较大（&gt; 100 GHz），则可以围绕每个信道的中心频率将其分成多个频带，并采用至少为信道比特率 4 至 10 倍的采样率。</p>
+<h2 id="MFBs-的数学基础">MFBs 的数学基础</h2>
+<p>当 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span> 表示调制光波的实值电场时，可从数学角度用多个频带来描述，具体如下</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mover accent="true"><mi>E</mi><mo stretchy="true">~</mo></mover><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><munder><mo>∑</mo><mi>i</mi></munder><mo stretchy="false">{</mo><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>j</mi><mn>2</mn><mi>π</mi><msub><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mi>t</mi><mo>+</mo><mi>c</mi><mi mathvariant="normal">.</mi><mi>c</mi><mi mathvariant="normal">.</mi><mo stretchy="false">}</mo></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\widetilde{E}(t)=\sum_i\{E_i(t)\exp(j2\pi f_{c,i}t+c.c.\}\tag{1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1933em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9433em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span><span class="svg-align" style="width:calc(100% - 0.1667em);margin-left:0.1667em;top:-3.6833em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="0.26em" viewBox="0 0 600 260" preserveAspectRatio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"></path></svg></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3277em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord">.</span><span class="mord mathnormal">c</span><span class="mord">.</span><span class="mclose">}</span></span><span class="tag"><span class="strut" style="height:2.3277em;vertical-align:-1.2777em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E_{i}(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>为载波频率<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>c</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{c,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>频带中光波的复振幅（复包络）。式（1）中的描述并非唯一，这意味着将两个可能重叠的单独频带合并为一个频带的过程是不可逆的。将式（1）进行傅里叶变换，电场 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span> 的频谱可以写成各复包络频谱的和，这些复包络分别由其各自的载波频率进行平移。这意味着可以通过去除各自的载波将光波分解为独立的基带。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\MFBBaseBandTrans.png" alt="MFB信号的基带变换" style="zoom:70%;"></center>
+<h3 id="MFB下光纤信号的演化方程">MFB下光纤信号的演化方程</h3>
+<p>采用多频带滤波器（MFB）而非单频带滤波器（SFB）进行模拟时性能的提升，源于将一个带宽相对较大的系统分解为多个较小带宽的系统并行模拟，从而降低了计算需求。 与对 SFB 表示的信号进行仿真相比，其不足之处在于必须接受计算精度的降低。本段介绍的 MFB 方法通过假设系统限制特性，特别适合加快仿真速度。这意味着，例如，对于频率间隔大于各频带单独模拟带宽的频率分量，假设诸如 FWM 等产生新频率分量的传输效应可以忽略不计。</p>
+<p>当一根光纤被输入由 MFB 描述的信号时，以下传输现象仍可进行模拟：</p>
+<ul>
+<li>衰减</li>
+<li>色散</li>
+<li>自相位调制（SPM）</li>
+<li>交叉相位调制（XPM）</li>
+</ul>
+<p>在估算密集波分复用（WDM）场景的系统性能时，这是一种足够有效的方法。此外，每个频带内四波混频（FWM）效应的考虑方式与SFB表示的考虑方式相同。 由于仍需估计与幅度和相位相关的通道间依赖关系，因此必须通过调整光纤模型来适应这些影响。与仅获得单个演化方程（如同步时间流 SDF 所得）不同，这里得到的是一个通过相互依赖的非线性算子 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">N_{i,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> 相连接的方程组</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><msub><mi>E</mi><mi>i</mi></msub></mrow><mrow><mi mathvariant="normal">∂</mi><mi>z</mi></mrow></mfrac><mo>=</mo><mo stretchy="false">{</mo><msub><mover accent="true"><mi>D</mi><mo>^</mo></mover><mi>i</mi></msub><mo>+</mo><msub><mover accent="true"><mi>N</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mover accent="true"><mi>α</mi><mo>^</mo></mover><mi>i</mi></msub><mo stretchy="false">}</mo><msub><mi>E</mi><mi>i</mi></msub><mo>+</mo><munder><mo>∑</mo><mi>k</mi></munder><msub><mover accent="true"><mi>N</mi><mo>^</mo></mover><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><msub><mi>E</mi><mi>k</mi></msub><mspace width="2em"></mspace><mi>i</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(2)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\frac{\partial E_i}{\partial z}=\{\hat{D}_i+\hat{N}_i-\hat{\alpha}_i\}E_i+\sum_k\hat{N}_{i,k}E_k\qquad i=1,2,...\tag{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1968em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9468em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0968em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9468em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.3521em;vertical-align:-1.3021em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3021em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9468em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:2em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span></span><span class="tag"><span class="strut" style="height:2.6736em;vertical-align:-1.3021em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">2</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>需要注意的是，非线性算子 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">N_{i,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> 不仅依赖于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E_k(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span> 还依赖于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E_i(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="MFB的偏振表示法">MFB的偏振表示法</h3>
+<p>对于由多个频带表示的光信号，其偏振方面的考虑与单频带信号相同。</p>
+<h3 id="离散转换与多速率计算">离散转换与多速率计算</h3>
+<p>正如对单频带（SFB）所解释的那样，复包络的连续时间波形和连续频率谱必须在两个域中都通过离散样本流来近似，以便进行数值计算。对于多频带（MFB），多个基带信号必须转换为离散数据流，针对每个频带分别进行。 在对各个复杂包络进行变换时，必须遵循与单个频带相同的规则。由于所有频带都对应于相同的仿真时间窗口，因此频带的频谱分辨率相等，即由 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>s</mi></msub><mi mathvariant="normal">/</mi><msub><mi>N</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">r_s/N_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 符号率 (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">r_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 符号率，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">N_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 符号数量）定义。然而，由各频带采样率 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">f_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 定义的仿真带宽可以不同，因此，通过分别对每个信道进行建模，可以对具有不同带宽要求和较大信道间隔（这可将 FWM 效应保持在较低水平）的 WDM 信道进行最佳研究。</p>
+<p><strong>上采样和下采样</strong>。在模拟具有多个输入端口的光学组件（例如，光交叉耦合器）时，如果输入信号的采样率不同，则必须谨慎处理。只有当采样时间网格匹配时，采样的基带信号才能进行比较。当它们的带宽不同时，情况并非如此。为了获得相同的时间网格，必须对信号进行重采样。</p>
+<ul>
+<li>
+<p>上采样指的是通过假设在所考虑的带宽之外不存在信号能量来提高时间分辨率（减小时间域中的采样周期 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>t</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mi mathvariant="normal">/</mi><msub><mi>f</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Delta t=(1/f_s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1/</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>）。为了减小采样周期，必须提高采样率，从而增加仿真带宽。这可以通过用零值扩展频带的一个周期实现。例如，将 N 个样本的频带以两倍的因子进行上采样， 意味着通过假设原始频带之外的样本点为零，将频率样本的数量增加到 2N；</p>
+</li>
+<li>
+<p>下采样表示相反的操作，即增加采样周期。它是通过减小采样频带的周期来实现的。 这意味着忽略采样点，从而将较高频率的成分折叠到输出带宽内。因此，在降采样之前通常会通过滤波部分去除较高频率的成分。例如，将 N 个样本的频带降采样两倍，可以看作是将该频带的周期缩小到 N/2 个样本；</p>
+</li>
+<li>
+<p><code>TC Modules &gt; Signal Conversion</code>文件夹中提供了上和下采样的模块。</p>
+</li>
+</ul>
+<p><strong>合并频带</strong>。VPI中，多频带（MFB）信号中的重叠子频带（SFB） 会自动合并为一个频带。虽然 MFB 信号中的每个基带信号具有相同的频率网格（这是由于仿真时间窗口恒定所致），但每个信号可能基于不同的时间网格，因为频带的带宽可能不同。在合并两个或多个频带为一个频带时，所有采样的复包络都必须转换到一个基带中。这是通过以下方式实现的：</p>
+<ul>
+<li>
+<p>首先，组合频带的参考频率为所有输入信号的绝对光频最小值与最大值之间的中点，并四舍五入到频率网格上的最近点。这些频率由以下方式确定：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>f</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>min</mi><mo>⁡</mo><mrow><mo fence="true">{</mo><msub><mi>f</mi><mrow><mi>c</mi><mn>1</mn></mrow></msub><mo>−</mo><mfrac><msub><mi>f</mi><mrow><mi>s</mi><mn>1</mn></mrow></msub><mn>2</mn></mfrac><mo separator="true">,</mo><msub><mi>f</mi><mrow><mi>c</mi><mn>2</mn></mrow></msub><mo>−</mo><mfrac><msub><mi>f</mi><mrow><mi>s</mi><mn>2</mn></mrow></msub><mn>2</mn></mfrac><mo fence="true">}</mo></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>f</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>min</mi><mo>⁡</mo><mrow><mo fence="true">{</mo><msub><mi>f</mi><mrow><mi>c</mi><mn>1</mn></mrow></msub><mo>+</mo><mfrac><msub><mi>f</mi><mrow><mi>s</mi><mn>1</mn></mrow></msub><mn>2</mn></mfrac><mo separator="true">,</mo><msub><mi>f</mi><mrow><mi>c</mi><mn>2</mn></mrow></msub><mo>+</mo><mfrac><msub><mi>f</mi><mrow><mi>s</mi><mn>2</mn></mrow></msub><mn>2</mn></mfrac><mo fence="true">}</mo></mrow></mrow></mstyle></mtd></mtr></mtable></mtd><mtd width="50%"></mtd><mtd><mtext>(3)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+f_{min}&amp;=\min\left\{f_{c1}-\frac{f_{s1}}{2},f_{c2}-\frac{f_{s2}}{2}\right\}\\
+f_{max}&amp;=\min\left\{f_{c1}+\frac{f_{s1}}{2},f_{c2}+\frac{f_{s2}}{2}\right\}
+\end{aligned}\tag{3}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.4001em;vertical-align:-2.45em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-4.95em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">}</span></span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.45em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">}</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:5.4001em;vertical-align:-2.45em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">3</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>c</mi><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{ci}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是参考频率，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>s</mi><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{si}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">i=1,2,...</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span></span></span></span> 个频带的采样率。</p>
+</li>
+<li>
+<p>合并后的频带带宽由 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>f</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{max} - f_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 给出。然而，带宽会被增加，以确保样本数量的最大质因数（GPF）不超过全局仿真参数 <code>GreatestPrimeFactorLimit</code> 所指定的值。这很重要，因为这能确保快速傅里叶变换在仿真中保持高速。当样本数量的 GPF 为 2 时，速度最快。在这种情况下，两个频带的频率比为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">2^m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span></span></span> 的形式。因此，合并信号的新采样率可以通过不断翻倍 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">{</mo><msub><mi>f</mi><mrow><mi>s</mi><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>f</mi><mrow><mi>s</mi><mn>2</mn></mrow></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\max\{f_{s1},f_{s2}\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span> 直到其大于合并后的带宽来获得。将 <code>GreatestPrimeFactorLimit</code> 设置为大于 2 的值可以减小合并后的频带带宽。将 <code>GreatestPrimeFactorLimit</code> 设置为 -1 可以取消限制允许任意数量的样本，因此，最终的带宽将恰好等于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>f</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">f_{max} - f_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 。</p>
+</li>
+<li>
+<p>最后，这两个基带信号按照新的采样率进行上采样，并根据其频率成分相加。请注意，合并频带的过程可能会产生一个新的采样频带，其占用的带宽更大，从而触发与相邻频带的新合并过程。当要合并的采样频带超过两个时，应成对进行合并。</p>
+</li>
+</ul>
+<h3 id="MFB的优缺点">MFB的优缺点</h3>
+<p>通过多个采样频带对信号进行描述可获得“中等”精度，因为未包含非线性效应中的四波混频。与基于单频带的光学信号表示相比，其所需的存储空间和计算量都较小。</p>
+<p>对于多频带MFB光信号的演化方程(2)包含许多耦合项，这些项代表了多个频带之间的相互作用。因此，MFB 信号模型算法的实现比 SFB 信号的更为复杂。要全面考虑放大自发辐射（ASE）噪声的整个带宽是很困难的。然而， 将带宽划分为更小的频率段，就可以研究每个 MFB 中噪声的频谱特性。</p>
+<h2 id="参数化信号">参数化信号</h2>
+<p>VPI设计理念在于为用户提供全面的信号表示形式，涵盖多种抽象程度。基于采样频带的两种信号描述方法已得到明确。它们是相对精确的表示形式，涵盖了影响传输光波的大多数物理现象。</p>
+<p><strong>基于对光信号的不完整信息而得出的粗略信号描述由参数化信号（Parameterized Signals，PS）表示</strong>。这种表示方式提供了一种描述：通过光通道的主要、最重要的特性来对其进行说明。 例如，在研究密集波分复用（WDM）系统中中央信道的传输特性时，远端信道的平均功率即可作为其近似值。其数据流的详细波形并不重要，但其对放大器饱和的影响却很重要。然而，这意味着由于相位调制和四波混频，它们对中央信道的动态影响可以忽略不计。 功率预算分析（例如估算掺铒光纤放大器中的增益饱和）是参数化信号的另一个应用领域。将其应用于 WDM 系统的快速光信噪比估算时，它是一个非常强大的工具。此外，还可以估算光纤中拉曼效应引起的信道间相互作用，并进行串扰计算。</p>
+<h3 id="创建参数化信号">创建参数化信号</h3>
+<p>大多数光学源（发射器、脉冲发生器、激光器）都有选择其输出形式的选项。若要选择参数化格式的输出，选择<br>
+  <code>OutputDataType = Parameterized</code><br>
+参数化信号也可以通过从 SFB 信号中提取来创建。这是通过<code>SignalConverter</code>模块实现的。下图以图形方式描绘了从物理信号描述中提取重要信号属性的过程。 提取操作要么由执行平均过程的模型来完成，要么可以在信号源处定义。需要指定的参数类型取决于具体的应用。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SFB2PS.png" alt="用统计参数描述信号" style="zoom:60%;"></center>
+<h3 id="统计信号模型的特征参数">统计信号模型的特征参数</h3>
+<p>以下信号参数始终包含在参数化信号的表示中：</p>
+<ul>
+<li>参考频率表示参数化光信道的中心频率。若未指定等效带宽，则其定义为信道功率被认为集中的频率点。</li>
+<li>时域中该信道的平均功率由参数<code>average power</code>确定;</li>
+<li>功率谱密度可定义为平均功率值除以仿真带宽 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">f_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>;</li>
+<li>光信号的偏振态（SOP）由斯托克斯矢量的归一化参数和偏振度来表征。</li>
+</ul>
+<p><code>SignalStatistic</code> 参数组组包含以下参数化信号的统计特征：</p>
+<ul>
+<li><code>Average Pulse Position</code> 定义了传播中的光脉冲的平均位置；</li>
+<li><code>Pulse Position Variance</code> 显示了光信号脉冲位置的方差；</li>
+<li><code>Extinction</code> 定义了调制光信号的振幅消光比。</li>
+</ul>
+<p><code>TrackingData</code> 参数组包含以下属性：</p>
+<ul>
+<li><code>Entry</code> 表示当前条目的编号（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时，编号会根据信号走过的模块进行排序，当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时则为1）；</li>
+<li><code>Event</code> 为信号路径上模块的序号，<code>TrackingMode</code> 同上 <code>Entry</code>；</li>
+<li><code>PhysicalPath</code> 中包含参数化信号所经过的所有光纤的总长度（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时，<code>PhysicalPath</code> 是长度数组，当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>PhysicalPath</code> 是累积的总光纤长度）；</li>
+<li><code>TopologicalPosition</code> 几乎与 <code>PhysicalPath</code> 相同，但它指的是信号的拓扑位置，而非信号的物理路径；</li>
+<li><code>TransitTime</code> 是信号在网络中传播所需的时间。（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时，<code>TransitTime</code> 是时间数组，当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>TransitTime</code> 是累积的总累积的时间延迟）；</li>
+<li><code>Path</code> 包含信号经过模块的 ID（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时，<code>Path</code> 是经过的所有模块，当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>Path</code> 是经过的最后一个模块）；</li>
+<li><code>AccumulatedGVD</code> 包含沿传播路径的累积色散值（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>AccumulatedGVD</code> 为全部链路的总体色散；</li>
+<li><code>AccumulatedDGD</code> 包含沿传播路径的累积差分群时延（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>AccumulatedDGD</code> 为全部链路的总累积差分群时延；</li>
+<li><code>AccumulatedSPM</code> 包含沿传播路径累积自相位调制引起的光信号的相位变化（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>AccumulatedSPM</code> 为累积自相位调制引起的最终相位变化；</li>
+<li><code>Power</code> 表示沿传播路径的信号功率序列（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>Power</code> 表示当前信号的功率；</li>
+<li><code>S1，S2，S3</code> 表示沿传播路径的未归一化斯托克斯矢量分量的数组（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>S1，S2，S3</code> 表示当前斯托克斯矢量分量的值；</li>
+<li><code>NonlinearCoefficient</code> 表示信号所经过的光纤的非线性系数（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>NonlinearCoefficient</code> 表示最后一个模块的非线性系数；</li>
+<li><code>Bo</code> 表示沿信号传播路径的光带宽值（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>Bo</code> 表示最终光带宽值；</li>
+<li><code>Be</code> 表示沿信号传播路径的电带宽值（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>Be</code> 表示最终电带宽值；</li>
+<li><code>NoisePSD</code> 表示沿传播路径在信号波长处的光噪声功率谱密度值（在光带宽 Bo 内，当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>NoisePSD</code> 表示最终值；</li>
+<li><code>DistCohTotalPower</code> 表示沿链路位于电带宽 <code>Be</code> 内的所有相干畸变的总功率值（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>DistCohTotalPower</code> 表示最终值；
+<ul>
+<li><code>DistIncohTotalPower</code> 表示整个光谱范围内（不包括 <code>Be</code>）链路中所有非相干畸变的总功率值（当 <code>TrackingMode</code> 设置为 <code>Detailed</code> 时），当 <code>TrackingMode</code> 为 <code>FinalValues</code> 时，<code>DistIncohTotalPower</code> 表示最终值；</li>
+</ul>
+</li>
+</ul>
+<p>以上这些属性在光信号源中设定，并在光纤中加以改变。这些属性可以通过 <code>LinkAnalyzer</code> 模块查看。该模块会显示沿光链路的信号功率和噪声功率、累积色散、非线性相移（SPM）、差分群时延以及其它信号特性。 如果 <code>TrackingMode=FinalValues</code>，则仅绘制 <code>LinkAnalyzer</code> 所连接网络点处的值。如果 <code>TrackingMode=Detailed</code>，则会沿传播路径可视化信号特性，还可以绘出频率图。案例请参阅 <code>Optical Systems Demos &gt; Characterization &gt; Dispersion &amp; Kerr &gt; Signal  Analysis in a Link</code>。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\LinkAnalyzer.png" alt="LinkAnalyzer显示Tracking Data组的AccumulatedGVD数据" style="zoom:67%;"></center>
+<h3 id="信号交互">信号交互</h3>
+<p>在使用参数化信号时，必须格外小心，以避免出现不必要的仿真效应。一方面，传输单个参数化信号（PS）的描述很简单。基于单个频带中采样信号的演化方程（2），仅考虑衰减。另一方面，当参数化信号与另一种表示形式的信号一 起传输时，会存在复杂的耦合项。因此，通常需要求解更复杂的演化方程。</p>
+<p>采样表示与参数化表示之间的转换也不简单。从采样波形中可以估计出的信号特性已在上面列出，一般来说，采用了统计和功率平均的方法。从参数化信号生成采样信号是模糊的，因为无法仅从平均功率恢复波形。然而，通过应用某些假设，这个问题可以近似解决。 例如，如果参数化信号描述的是强度调制的 RZ 脉冲流，则可以生成理想的 RZ 脉冲序列。如果有关时间抖动的信息可用，甚至可以使用高斯分布来模拟脉冲位置的波动。但请注意，由于采用了平均处理，最终会丢失精确的波形（受色散、非线性效应等的影响）、相位信息以及传输脉冲的频谱形状。</p>
+<h3 id="畸变">畸变</h3>
+<p>某些效应会产生寄生光场，这些光场会干扰原始信号，从而导致性能下降。此类光场表现为畸变，会改变信号的原始波形。畸变会改变原始信号的幅度、频率和相位。畸变可以被视为一种参数化信号，因为它们具有与参数化信号相同的物理参数：频率、功率和斯托克斯矢量。</p>
+<p>有几种类型的畸变，它们因起源不同而有所区别：</p>
+<ul>
+<li>源于布里渊散射的信号布里渊畸变；</li>
+<li>由瑞利散射引起的瑞利畸变；</li>
+<li>串扰畸变可通过波分复用（WDM）系统中多个信道对选定信道的影响来描述；</li>
+<li>由三个波长与第四个波长之间的串扰而产生的四波混频（FWM）畸变；</li>
+<li>总体畸变，指的是不同类型畸变相互叠加时产生的畸变。</li>
+</ul>
+<p>VPI某些模块（例如掺杂光纤）会自动产生畸变，以表示由于瑞利散射和布里渊散射效应而散射的光功率。如果将参数化信号输入到启用了考虑瑞利散射的通用光纤模块中，则输出信号将同时包含参数化信号和相同频率的瑞利畸变。可以通过计算信号/畸变功率比来大致估计由于畸变导致的信号劣化，这可以使用 <code>LinkAnalyzer</code> 模块的参数 OSDR  来完成。</p>
+<p>默认情况下，用于处理参数化信号和畸变的算法是相同的。例如，光学滤波器会以相同程度衰减具有相同频率的参数化信号和畸变。然而，在某些情况下，算法应该有所不同，例如在上述的 <code>UniversalFiber</code> 和 <code>DopedFiber</code> 模块中。该仿真器支持在任何模块中应用特殊算法，以分别处理畸变和参数化信号。</p>
+<h3 id="参数化信号与畸变的合并">参数化信号与畸变的合并</h3>
+<p><code>SignalConverter</code> 模块可用于将多个频率相同且参数化的信号和/或畸变合并为一个参数化的信号或畸变。在仿真中可能会出现多个参数化信号具有相同频率的情况。例如，当由参数化信号表示的多个波分复用（WDM）信道被解复用为单个信道，分别处理后再重新组合成一个信号时，由于滤波器的非理想限制，解复用器的每个输出端口除了所需的信道外，还会包含其他 WDM 信道的一定功率。当这些信道在复用器中重新组合时，上述残留的信道功率会与相应的 WDM 信道产生干扰。这种效应被称为多径干扰（MPI）。 在使用参数化信号的仿真中，MPI 将导致信号频谱中包含主信号以及在相同频率上的多个干扰信号。</p>
+<p>如果在循环中使用这种设置，干扰信号的数量会随着循环迭代次数呈指数级增长，这可能会显著减慢模拟速度。<code>SignalConverter</code> 模块提供了解决此问题的方法。该模块可以将所有频率相同的参数化信号合并为一个信号，新参数化信号的功率和斯托克斯矢量将由所有信号的功率和斯托克斯矢量的矢量和表示。亦或者可以在 <code>SignalConverter</code> 模块中通过移除功率低于特定阈值的弱信号来减少信号数量。</p>
+<p>除了多径干扰（MPI）之外，另一种典型的情况是，在拉曼或掺铒光纤放大器中，由于主信号频率处的瑞利散射而产生畸变。如果我们只对信号频率处的总功率感兴趣，可以使用 <code>SignalConverter</code> 模块将畸变添加到主要的参数化信号中。</p>
+<h3 id="噪声箱（Noise-Bins，NB）">噪声箱（Noise Bins，NB）</h3>
+<p>例如，在放大系统中，调制载波的带宽可能远小于在系统中传播的放大自发辐射（ASE）噪声的带宽。然而，模拟整个噪声带宽是很重要的，因为它会使后续放大器饱和，并在光电检测后导致电噪声。ASE 噪声覆盖超过 5 THz，在双波段放大器中则会翻倍。如果我们将其描述为一个超连续谱信号，那么就需要 5 THz 的采样率， 即每纳秒 5000 个样本或实时采样。如果系统的信号带宽小于 5 THz，这将是低效的。</p>
+<p>一种更复杂的方法是通过在频谱中分离噪声和光数据信号，并采用参数化信号表示的特殊形式来描述噪声：噪声箱。噪声箱假定噪声的频谱密度在一个数据块（由全局参数 <code>TimeWindow</code> 设置）内是恒定的。因此，噪声可以用平均频谱密度（在两个偏振态下）来表示。此外，噪声箱的带宽会自适应调整，从而提供一种粗略但高效的频谱分辨率，如下图所示。在白噪声的极限情况下，单个噪声箱即可表示整个噪声频谱。然而，VPI会自适应调整噪声频段的频谱分辨率，以保持指定的幅度精度。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\NoiseBins.png" alt="用噪声箱表示宽带噪声" style="zoom:55%;"></center>
+<p>由于混合信号表示在其中得到支持，在 VPI 中，光数据信号由覆盖信号带宽的 SFB/MFB 形式来描述。这样，噪声箱就能涵盖更宽的噪声频谱。噪声箱有两种使用模式：</p>
+<ul>
+<li>表示整个仿真带宽内系统中的所有噪声</li>
+<li>仅表示频谱中超出 SFB/MFB 信号带宽范围的噪声。</li>
+</ul>
+<p>该模式由稍后描述的全局参数 <code>InBandNoiseBins</code> 设置。如果噪声箱代表系统中的总噪声，则近似认为噪声水平与平均信号功率相比很低，并且可以独立于光信号进行处理 （线性化方法）。噪声箱在通过光学组件时，会自适应地表示出滤波、噪声叠加、信道复用、衰减等过程。假设各频段内的噪声功率谱密度代表高斯白噪声，并且是不相干叠加。</p>
+<h4 id="噪声箱的创建">噪声箱的创建</h4>
+<p>每当存在诸如激光发射器、光放大器和光信号源之类的光噪声源时，都可以创建噪声箱。然而，如果需要的话，噪声也可以在 SFB 和 MFB 信号中表示。如果需要在诸如光纤之类的非线性介质中完整地呈现噪声与信号的相互作用，可以采用上述做法。噪声箱的创建通过设置源中 SFB 和噪声箱的相对带宽来控制。 SFB 的带宽由其采样率决定，而噪声箱的带宽则由 <code>NoiseBandwidth</code> 参数设定。另一个关键的控制是 <code>InBandNoiseBins</code> 控制。它决定了在 SFB 和 MFB 带宽内产生的噪声是添加到噪声箱还是添加到 SFB 和 MFB 表示中的光场，如下图所示。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\InBandNoiseBins.png" alt="参数 InBandNoiseBins 的设置" style="zoom:67%;"></center>
+<p>使用用噪声箱时有三个选项：</p>
+<ul>
+<li>如果希望在整个光带宽范围内将噪声表示为噪声箱，请设置：
+<ul>
+<li>在全局参数中将<code>InBandNoiseBins</code>设置为<code>ON</code>；</li>
+<li><code>NoiseBandwidth</code> 中设置噪声的带宽；</li>
+<li>实际生成噪声的模块，例如：
+<ul>
+<li>在某些光放大器模型中，将<code>IncludeNoise</code>设置为 <code>ON</code>；</li>
+<li>连续激光器（<code>LaserCW</code>）的线宽不为零；</li>
+<li>在 <code>NoiseWhiteGaussOpt</code> 模块中设置 <code>NoisePowerDensity = non-zero</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果希望仅在 MFB 和 SFB 信号带宽之外通过噪声频段来表示噪声，请设置：
+<ul>
+<li>在全局参数中将<code>InBandNoiseBins</code>设置为<code>OFF</code>；</li>
+<li>确保在噪声源中通过 <code>NoiseBandwidth</code> 参数表示噪声的带宽，且该参数值要大于 SFB 的采样率，否则噪声频段将不存在；</li>
+<li>实际生成噪声的模块（同上）；</li>
+</ul>
+</li>
+<li>如果不想使用噪声箱，则：
+<ul>
+<li>将噪声带宽设置为零，或者；</li>
+<li><code>InBandNoiseBins</code> 设置为 <code>OFF</code> 时，将噪声带宽设置为小于采样率。</li>
+</ul>
+</li>
+</ul>
+<h4 id="噪声箱属性：参数与控制">噪声箱属性：参数与控制</h4>
+<p>在创建噪声箱时，可以指定以下属性（参数和控件）：</p>
+<ul>
+<li><code>NoiseCenterFrequency</code> 表示的是各噪声箱的中心频率;</li>
+<li><code>NoiseBinSpacing</code> 设置分箱的最大宽度。为保持指定的幅度精度（由 <code>NoiseDynamic</code> 参数定义），其宽度可能会被分成两份、四份等以变得更小。如果某个分箱的噪声含量低于 <code>NoiseThreshold</code> 值，则不会进行分割;</li>
+<li>噪声箱所覆盖的总频率范围由 <code>NoiseBandwidth</code> 参数指定;</li>
+<li>偏振态（SOP）由斯托克斯矢量的归一化分量和偏振度来描述。如果噪声是去偏振的，即实际偏振态在时域和频域中随机变化，那么斯托克斯参数 S1、S2 和 S3 将被设为零。 通常情况下，偏振态被设为去偏振;</li>
+<li>某些模块中的噪声水平由 <code>NoisePowerDensity</code> 来指定。</li>
+</ul>
+<h4 id="噪声分箱的自适应调整">噪声分箱的自适应调整</h4>
+<p><strong>噪声频段到 SFB 和 MFB 表示的转换</strong></p>
+<p>当 <code>AddNoiseBinsToSignal</code> 被设置为 <code>YES</code> 时，会在光纤模型中执行此操作， 或者在 VPIphotonicsAnalyzer 中选择 <code>Add Noise To Band = Yes</code> 时执行此操作， 此时噪声区间内的累积噪声可被转移至占据相同频谱区域的采样带（并且在转移后，相同频谱范围内的噪声箱可被设置为零）。</p>
+<blockquote>
+<p>请注意，一旦噪声频段被添加到采样频带中，就无法再将其分离出来。</p>
+</blockquote>
+<p><strong>当两条信号路径合并时的噪声合并</strong></p>
+<p>当两个光谱重叠的信号路径合并时，噪声箱必须合并。例如，当两个具有不同载波频率的信道（分别由 SFB 和噪声箱描述）复用时就会发生这种情况。采样频带合并为一个频带，噪声频段将按以下方式重新排列：</p>
+<ul>
+<li>仅存在一个噪声箱的频率范围由一个新的噪声箱表示，该新频段采用旧频段的属性。该频段的频率范围可能小于原频段，因为原频段可能覆盖了两个频段共存的区域。</li>
+<li>对于两个噪声箱重叠的频率范围，将设计一个新的频段。带宽设置为所覆盖的频率范围的大小。参考频率定义为所覆盖频率范围的中心频率。假设每个频段内均为白噪声且相互独立，且为高斯噪声，功率谱密度和两个原始噪声的偏振态不相干叠加的。</li>
+</ul>
+<p><strong>当光谱被滤波时噪声箱的拆分</strong></p>
+<p>噪声箱间隔（<code>NoiseBinSpacing</code>）表示频段的宽度，从而定义了噪声频谱形状的分辨率。将噪声箱间隔设置为整个仿真带宽，会生成一个平均功率谱密度的单个噪声箱。在传输过程中，频段的宽度会自动调整，以指定的精度描述噪声的滤波情况。如果相邻频段的功率差超过一定量，频段会分裂以使该区域的频谱分辨率翻倍。这意味着在仿真过程中，频段的宽度会缩小（并添加新的频段），从而始终维持给定的幅度离散化精度。</p>
+<blockquote>
+<p>请注意，这种拆分噪声频段的过程在每次添加光信号时都会引入越来越多的频段。当噪声的光谱分辨率高到一定程度时，就会出现一个极限，此时采用采样频带来表示噪声会更有效。因此，如果噪声频段小于 8/(TimeWindow) 赫兹， VPI 将不再对其进行拆分。</p>
+</blockquote>
+<p>此外，噪声频谱在通过滤波器时会发生变化。因此，带宽和功率谱密度的值必须进行调整以适应滤波器的传输函数。在 VPI 中的每个光滤波器处，用户都可以指定两个参数，这两个参数定义了噪声频段的传输函数适应分辨率。如果满足由这两个参数得出的两个条件，则噪声频段会被拆分。</p>
+<ul>
+<li>
+<p><code>NoiseDynamic</code> 定义了每个噪声箱带宽内滤波器传递函数的最大允许功率变化（即幅度精度，单位为分贝）。因此，噪声箱的大小会不断减半，直到每个噪声频段的滤波器传递函数动态范围小于指定值 <code>NoiseDynamic</code> 为止，如下图所示；</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\AdaptiveNB.png" alt="噪声箱的自适应调整" style="zoom:67%;"></center>
+</li>
+<li>
+<p>有时，为满足指定的 <code>NoiseDynamic</code> 值而执行的噪声箱减半操作可能会产生大量噪声箱，从而减慢模拟速度。为避免这种情况，<code>NoiseResolution</code> 参数定义了在噪声调整大小过程中可实现的最小噪声箱宽度。</p>
+</li>
+<li>
+<p>然而，功率低于 <code>NoiseThreshold</code> 参数所指定值的频段不会被拆分。这可避免对噪声微不足道的许多频段进行处理。下图展示了经高斯光学滤波器滤波后的白噪声的典型频谱。功率比峰值低 40 分贝的噪声频段不会被拆分。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\NoiseThreshold.png" alt="高于噪声阈值的噪声才会被分离拆分" style="zoom:55%;"></center>
+</li>
+</ul>
+<p><strong>光电二极管噪声箱的检测</strong></p>
+<p>如果 <code>JoinSignalBands</code> 设为 <code>YES</code>，则某些频段将合并为一个频段。落在 MFB/SFB 范围内的噪声点将转换为高斯白光噪声，然后通过在每个时间点对总光场的模取平方来检测总光场。这可能会占用大量内存，尤其是在粗波分复用（CWDM）模拟中。 当 <code>JoinSignalBands = No</code> 时，采样频带将被单独检测，每个噪声箱内的噪声将被转换为整个光谱范围的电噪声。因此，对于粗波分复用（Coarse-WDM）系统而言，这种方法特别有用，因为在这种系统中，使用 <code>JoinSignalBands</code> 会占用过多的内存。</p>
+<blockquote>
+<p>注意：当 <code>JoinSignalBands = Yes</code> 时，落在 SFB/MFB 之外的噪声箱不会转换为电输出。这意味着 SFB/MFB 的频率范围应足够宽，以覆盖任何会对光电流及其电噪声产生显著影响的光噪声。</p>
+</blockquote>
+<h2 id="混合信号表示法-2">混合信号表示法</h2>
+<blockquote>
+<p>必须始终注意跟踪信号表示在模型中的流动情况，以确保信号表示所经过的每个模型在特定情况下对于该特定表示都是准确的。</p>
+</blockquote>
+<p>在采样频带中引入噪声，还是将其单独保留在 SFB/MFB 带宽内的噪声频段中，这一选择也很重要。在很多情况下，应将 InBandNoiseBins 设置为 OFF，以便将  SFB/MFB 带宽内的噪声添加到 SFB/MFB 中。然而，如果采样频带包含确定性信息，而统计信息则保留在覆盖相同频谱部分的噪声频段中（<code>InBandNoiseBins = ON</code>），则可能更深入地了解系统的退化机制。</p>
+<h3 id="信号表示在系统中的流动">信号表示在系统中的流动</h3>
+<p>下图是信号流的图形表示法，有助于解释信号表示何时被创建、修改或删除：</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SignalKeys.png" alt="信号流表示法" style="zoom:50%;"></center>
+<h4 id="采样模式发射机">采样模式发射机</h4>
+<p>布拉格光栅稳定型发射机采用样本模式对激光器和布拉格光栅进行调制，并采用（非周期性）块模式进行调制和可视化。下图展示了标注的原理图，说明了信号表示的流程。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SampleModeTx.png" alt="布拉格光栅稳频发射机的光信号流程" style="zoom:70%;"></center>
+<h4 id="掺铒光纤放大器">掺铒光纤放大器</h4>
+<p>掺铒光纤放大器（EDFA）可以被建模为一个单一的组件，也可以被建模为 EDFA 内部相互连接的各个部分，例如泵浦激光器、波分复用器和滤波器。下图展示了一个采用前向泵浦光纤的 EDFA 示意图，该光纤由一个 4 通道测试信号提供输入。该图展示了所有四种块模式信号的使用：</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\EDFA.png" alt="EDFA模型中的信号流动" style="zoom:70%;"></center>
+<h4 id="非线性光纤">非线性光纤</h4>
+<p>要描述非线性光纤模型中所有信道与噪声之间的相互作用，需要将这些信道合并为一个单一频带（SFB）。光纤模型中的 <code>JoinSignalBands</code> 会将多频带（MFB）信道合并为单一频带。不过，带外噪声仍可单独传播。如果 <code>InBandNoiseBins</code> 为开启状态，光纤模型中的控制项 <code>AddNoiseBinsToSignal</code> 可将 SFB 带宽内的噪声转换为随机信号并添加到 SFB 中，而 SFB 带宽外的噪声则保留在其噪声箱内。</p>
+<p>下图展示了通过一根由 4 个信道输入并由掺铒光纤放大器（EDFA）放大的光纤信号流程。在此情况下， <code>InBandNoiseBins = OFF</code>。请注意，总线承载着四个独立的 SFB，在复用器处它们会组合成一个 MFB（前提是它们的采样率小于信道间隔）。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\NLFiber.png" alt="非线性光纤模型中的信号流及信号与噪声的相互作用" style="zoom:60%;"></center>
+<h4 id="信号表示之间的转换">信号表示之间的转换</h4>
+<blockquote>
+<p>VPI 提供工具来转换信号表示形式。使用这些工具时应谨慎，因为转换过程中总是存在信息丢失的可能性，尤其是转换为统计表示形式时。使用 <code>SignalAnalyzer</code> 模块在转换前后对信号进行监测是一种良好的习惯。</p>
+</blockquote>
+<p><strong>单频段与多频段之间的转换</strong></p>
+<p>当多个 SFB 通过合波器、耦合器或波分复用器（WDM）复用在一起，且它们的带宽不重叠时，就会形成 MFB 的表示形式。如果子带重叠，则它们将被合并。在 <code>Signal Conversion</code> 文件夹中的 <code>JoinBands</code> 模块可用于强制 MFB 到 SFB 的转换（案例：Optical Systems Demos &gt; Simulation Techniques &gt;  General &gt; Creating SFB and MFBs）。使用光学滤波器对 MFB 信号进行波长解复用，可将其恢复为 SFB 格式，然后使用重采样来降低 SFB 信号的采样率。</p>
+<h3 id="将噪声箱的信号添加到-SFB-MFB-信号中">将噪声箱的信号添加到 SFB/MFB 信号中</h3>
+<p>如果全局参数 <code>InBandNoiseBins = ON</code>，则噪声箱将覆盖整个仿真频谱，包括 SFB/MFB  所覆盖的区域。噪声将添加到这些频段，而非 SFB/MFB。因此，要模拟非线性光纤中信号与噪声的相互作用，可以使用光纤模块参数 <code>AddNoiseBinsToSignal = ON</code>，强制将噪声箱中累积的噪声转移到 MFB/SFB 中。</p>
+<h3 id="参数化信号与-SFB-MFB-信号之间的转换">参数化信号与 SFB/MFB 信号之间的转换</h3>
+<p><code>SignalConverter</code> 将对 MFB 信号的每个频带进行分析，以获取信号指标并生成参数化信号。要转换回采样信号，可以使用相同的模块。</p>
+<h3 id="信号表示的分离">信号表示的分离</h3>
+<p>每种信号类型都可以通过 <code>SignalTypeSelector</code> 从光信号中进行选择。</p>
+<h2 id="采样模式信号表示">采样模式信号表示</h2>
+<p>在双向仿真中，当组件之间的延迟与组件的长度相比很短时，采样模式是必不可少的。在这种情况下，光反馈是相干的，因此实际的时间延迟值非常重要。采样模式能够对组件之间的相互作用（包括正向和反向）进行建模。因此，它对于设计许多先进的光学组件是必要的，包括：</p>
+<ul>
+<li>多节式和外腔半导体激光器；</li>
+<li>用于开关和光时钟恢复的环形电路；</li>
+<li>设备与发射器之间的相互作用；</li>
+<li>干涉测量装置，包括波长转换器。</li>
+</ul>
+<p>VPI 支持采样模式，从而能够对诸如环形谐振器之类的无源器件进行仿真。 VPIcomponentMaker 光子电路提供了一系列专为采样模式设计的激光器和半导体光放大器（SOA）模型。这些模型可用于仿真新型激光器、SOA、SOA 应用、波长转换器和再生器。</p>
+<h3 id="双向传播的组件应用">双向传播的组件应用</h3>
+<p>要正确预测许多电路、器件和子系统的运行情况，全面考虑双向传播是至关重要的，甚至对于预测更大系统的误操作也是必要的。一些实例说明了对反向行波建模的重要性。</p>
+<p><strong>反馈至半导体激光器以实现波长稳定</strong>。某些波分复用（WDM）发射机依靠来自温度不敏感光栅的光反馈来稳定法布里 - 珀罗激光器的波长（如下图）。激光器模型与光栅模型之间的相互作用对于预测这些器件的光谱和动态性能至关重要。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\FBGSL.png" alt="光纤布拉格光栅稳频激光器" style="zoom:67%;"></center>
+<p><strong>半导体激光器中的非预期反馈</strong>。一些为本地接入系统设计的激光器内部未配备光隔离器，以降低其成本。来自连接器、有缺陷的电缆接头、光纤中的瑞利背向散射的光反馈（如下图），可能会导致激光器出现混沌行为或产生正弦强度变化，从而造成发射机产生过多噪声。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SL.png" alt="带有不良反馈的半导体激光器" style="zoom:67%;"></center>
+<p><strong>萨格纳克（Sagnac）环形干涉仪开关</strong>。将光纤 50:50 耦合器的两个输出端连接起来形成的光纤环路，依靠前向和后向传播波之间的干涉来以吉赫兹速率切换和解复用信号（如下图），前提是环路中非线性元件不对称放置。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SagnacLoop.png" alt="萨格纳克环路开关" style="zoom:67%;"></center>
+<p>这些示例说明了在器件、电路以及某些系统（大多不含隔离器）中进行双向仿真的重要性。遗憾的是，双向仿真排除了在假设单向仿真时可采用的提高效率的技术。</p>
+<h3 id="双向传播：采用采样模式的必要性">双向传播：采用采样模式的必要性</h3>
+<p>首先，考虑这样一种情况，即半导体激光器模型与光纤布拉格光栅模型相互连接， 仿真光纤布拉格光栅稳频的波分复用发射器。在这种情况下，为了确保复合腔的谐振模式，很可能会将布拉格光栅放置在靠近激光芯片的位置。</p>
+<p>这些波长间隔足够大，能够被布拉格光栅的选择性区分开来。这意味着从激光器发出的光波往返于光栅并返回激光器的整个行程最多只有几十皮秒。表示这种延迟的一种方法是，将激光器的输出存储在内存中，直到被布拉格光栅需要时再取出，同样地，将布拉格光栅反射的输出也存储在内存中，直到激光器需要时再取出。在每次迭代中，从内存中取出一个样本用于激光器的仿真，再取出一个样本用于布拉格光栅的仿真。如下图，一次往返时延需要迭代四次（从Laser出发回到Laser），内存需求将是延迟的两倍除以模型采样间隔，即八个内存（每个模型需要两个内存分别存储前向和后向传播的数据）。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SampleMode.png" alt="采样模式下的计算顺序" style="zoom:67%;"></center>
+<p>上图展示了在样本模式下计算的顺序。所有模型在每次迭代时都会“触发”，然后将数据传递给相邻的模型。这与模块之间在块模式下传递数据的方式不同，下图对样本模式和块模式下的计算顺序进行了比较</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\SampleAndBlock.png" alt="采样模式与块模式的迭代区别" style="zoom:67%;"></center>
+<p>在上述场景中，布拉格光栅和激光模型以逐个样本的方式与内存进行通信（代表组件之间的传播延迟）。然而，激光和布拉格光栅有可能以等于延迟的块长进行通信， 并且各自包含从内存中提取正确样本的机制。这将消除对延迟的需求，但会使激光和布拉格光栅模型以及所有其他需要延迟的模型变得更为复杂。因此，为了简单起见，在双向模式下，我们的大多数模型都以逐个样本的方式进行通信。</p>
+<blockquote>
+<p>注意：两个组件模型之间的最小延迟将等于一个采样间隔。这是因为，为了相互通信，激光器和布拉格光栅必须将其光学样本放置在一个“中央”内存位置，然后在下一次迭代时访问该位置。应通过使用 <code>Edit Properties</code> 命令对互连进行设置，将延迟值设为 1 来为互连添加一个迭代延迟。</p>
+</blockquote>
+<p>如果不添加延迟，那么替代方案就是自洽求解模型，即必须同时求解激光端面反射与布拉格光栅首次反射之间的相互作用，这需要解析解。为了通用性，通常不这样做，因为这意味着对于每种两个组件的组合都需要一个单独的模型。如果未包含延迟，则会发出错误提示。</p>
+<p>采样模式是设备和子系统仿真的最通用形式，因为它允许两个相邻模型之间几乎即时的双向通信。采样模式还可以传播周期性（在定义的时间间隔内）或非周期性的波形，而大多数模型产生的都是非周期性波形。需要注意的是，在采样模式下不支持噪声箱和参数化信号的块模式信号格式。这是因为它们所包含的信息不足以让由双向模型（例如由两个反射和一个延迟构成的法布里 - 珀罗谐振器）相互连接而成的复合性能得以可预测地计算。换句话说，如果相互连接不传递光相位信息，就无法计算由相互连接的元件构成的法布里 - 珀罗谐振器的性能。</p>
+<h3 id="模式排列">模式排列</h3>
+<p>双向/单向、周期性/非周期性以及采样/块模式这三种模式共有八种可能的排列组合。采样模式是最通用的仿真技术，因为它支持非周期性波形，并且能够在每个采样点上实现双向数据传递。对于由多次反射形成的复合谐振腔的光学元件而言，这种模式是理想的选择。大多数采样模式模块都需要将全局参数边界条件设置为非周期性，即<br>
+  <code>BoundaryConditions = APERIODIC</code><br>
+专为采样模式设计的模块会自动生成采样。然而，像 <code>LaserCW</code> 这类更通用的模块，则需要将其输出设置为：</p>
+<ul>
+<li><code>OutputDataType = SAMPLES</code>;</li>
+<li>如果数据仅沿一个方向传递，那么使用 <code>SampleToBlock</code> 模块将样本转换为块，然后在系统中传播这些块可能会更快。这被称为非周期性块模式;</li>
+<li>当然，可以在一个时间窗口内生成周期性的数据，并通过采样模式模块进行处理。然而，要获得周期性的输出，系统必须无噪声，并且必须运行足够多的块迭代次数以达到稳定状态。</li>
+</ul>
+<p>块模式信号通过设置 <code>OutputDataType = BLOCKS</code> 生成。</p>
+<p>块模式通常采用周期性边界条件，从而能够利用快速傅里叶变换（FFT）进行循环卷积。循环卷积意味着所有 WDM 信道在所有时间上相互作用，这使得 WDM 系统的高效仿真成为可能。</p>
+<ul>
+<li>在块模式下可以仿真双向环，例如在两个光交叉连接之间。必须通过编辑其中一条线路的属性并将延迟值设为 1 来向其中一条线路添加单块延迟。若不添加这些延迟，仿真将会陷入死锁。</li>
+</ul>
+<blockquote>
+<p>注意：在表示经过多条路径且存在长差分延迟（多径传播）的信号之间的干扰时，必须谨慎。传统上，这些信号被称为非相干信号，因此通常假定它们在光电检测时功率相加，而不是产生干涉图样。然而，如果它们的光频差小于接收器带宽，则会在检测到的波形中产生较大的强度波动。  这种不一致是由于“功率相加”仅适用于光电探测器输出的时间平均值。也就是说， 从时间平均的角度来看，信号确实表现为功率相加，但如果使用大带宽探测器进行检测，时间波动就会显现出来（并且会显著降低系统性能）。如果两个信号的波长基本相同，那么它们的相位关系对于检测到的信号来说就很重要。理想情况下，应扫过所有相位状态。</p>
+</blockquote>
+<h3 id="采样模式信号">采样模式信号</h3>
+<p>采样模式支持单一信号表示。由于采样模式中的模块在每次迭代时都会进行通信，因此信号表示必须具有较少的开销。采样模式信号具有如下特性：</p>
+<ul>
+<li>表示信号的时间采样光场。采样间隔是恒定的，且为预定义的全局参数  <code>SampleModeBandwidth</code> 的倒数；</li>
+<li>具有一个由 <code>SampleModeCenterFrequency</code>（预定义的全局参数）设置的公共中心频率；</li>
+<li>具有共同的光学带宽，由预定义的全局参数 <code>SampleModeBandwidth</code> 设定（模型时间步长或采样间隔的倒数）；</li>
+<li>通常具有由全局参数 <code>BoundaryConditions</code> 设置的 <code>Aperiodic</code> 边界条件，因为某些使用采样数据的模型需要使用非周期性边界条件；</li>
+<li>可以使用 <code>SampleToBlock</code> 模块将其转换为数据块。所创建的数据块的长度时长由预定义的全局参数 <code>TimeWindow</code> 设定。数据块必须包含一定数量的样本，这些样本的最大质因数（GPF）不能超过全局参数 <code>GreatestPrimeFactorLimit</code> 所指定的值。默认情况下 <code>GreatestPrimeFactorLimit = 2</code>，这意味着数据块必须包含 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span>（n 为整数）个样本。也就是说，<code>TimeWindow</code> 乘以 <code>SampleModeBandwidth</code> 必须是 2 的幂。将 <code>GreatestPrimeFactorLimit</code> 设为 -1 则允许数据块包含任意数量的样本。</li>
+<li>既包含处于采样模式下各组件的有用信号，也包含其噪声。</li>
+</ul>
+<h4 id="采样模式信号的数学基础">采样模式信号的数学基础</h4>
+<p>采样模式信号基于复振幅基带变换。这些信号通过从光波形中提取一个载波频率（由预定义的全局变量 <code>SampleModeCenterFrequency</code> 设定）来表示光波形。剩余的包络是一个复杂的波形，它完全代表了以  <code>SampleModeCenterFrequency</code> 为中心带宽内的光通道和噪声。调制包络由一个采样波形表示，其采样率等于我们希望表示的光信号的带宽。</p>
+<h4 id="使用采样模式信号的基本操作">使用采样模式信号的基本操作</h4>
+<p><strong>采样模式信号的产生</strong></p>
+<p>通过计算同相和正交正弦波来生成光载波，这两个正弦波分别成为光场的实部和虚部</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><msqrt><mi>P</mi></msqrt><mo>⋅</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>j</mi><mo>⋅</mo><mn>2</mn><mi>π</mi><mo>⋅</mo><mi mathvariant="normal">Δ</mi><mi>f</mi><mo>⋅</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(4)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">E(t)=\sqrt{P}\cdot\exp(j\cdot 2\pi\cdot \Delta f\cdot t)\tag{4}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.0645em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9755em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span><span style="top:-2.9355em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.0645em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="tag"><span class="strut" style="height:1.2255em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">4</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>其中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">\Delta f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span>是发射频率与 <code>SampleModeCenterFrequency</code> 之间的偏移量，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span>是波形的光功率。注意这些场已进行归一化处理，其模的平方表示光功率。通过在调制中施加相位的随机游走，可以生成具有非零线宽的载波。通过在场中添加循环复高斯白噪声源，可以模拟噪声基底。</p>
+<p><strong>衰减和强度调制</strong></p>
+<p>与时间无关的衰减可以通过将复包络的所有样本乘以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mrow><mo stretchy="false">(</mo><mo>−</mo><mtext>Attenuation</mtext><mi mathvariant="normal">/</mi><mn>20</mn><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">10^{(-\text{Attenuation}/20)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.888em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">−</span><span class="mord text mtight"><span class="mord mtight">Attenuation</span></span><span class="mord mtight">/20</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span> 来简单实现，其中衰减以分贝为单位。 时变衰减可以通过诸如强度调制来实现，例如将复基带波形乘以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>⋅</mo><mo stretchy="false">(</mo><mtext>ElectricalSignal</mtext><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>0.5</mn></msup></mrow><annotation encoding="application/x-tex">k\cdot(\text{ElectricalSignal}(t))^{0. 5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord text"><span class="mord">ElectricalSignal</span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0.5</span></span></span></span></span></span></span></span></span></span></span></span>，其中 ElectricalSignal 通常以伏特为单位，而 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 描述了调制器的效率。平方根函数考虑到了大多数调制器都是根据给定调制输入时的光功率传输变化来定义的。</p>
+<p><strong>光学相移</strong></p>
+<p>可以通过将复基带信号乘以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>j</mi><mo>⋅</mo><mtext>PhaseShift</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\exp(j\cdot\text{PhaseShift})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">PhaseShift</span></span><span class="mclose">)</span></span></span></span> 来实现光学相移，其中相移是通过某个组件的光学相位的提前量。这可以是时间相关的，例如在调制器中。在频带内，相同的相移会施加到所有光学频率上。频率相关的相移则需要将信号与相移（全通）滤波器的脉冲响应进行卷积。</p>
+<p><strong>光延迟</strong></p>
+<p>等于整数个样本的光延迟可以通过将波形在 FIFO 存储器中保持整数个样本的时间来表示。VPI 允许通过编辑线的属性来输入延迟。</p>
+<blockquote>
+<p>注意：为避免死锁，在双向通信的采样模式模块之间应至少设置 ‘1’（采样间隔）的延迟。这可通过编辑连线并设置 <code>DelayValue = 1</code> 来实现。</p>
+</blockquote>
+<p>非整数延迟必须通过全通滤波器来实现，当 <code>IntegerSampleDelay = No</code> 时，可在 <code>DelaySignal</code>（或 <code>DelaySignalInit</code>）模块中提供。延迟是通过将与频率相关滤波器的时间域等效值进行卷积来模拟的。</p>
+<p><strong>光检测</strong></p>
+<p><strong>在复振幅基带变换中，任何时刻的功率仅仅是该时刻复光场模的平方</strong>。光场被校准为光功率的平方根，而非伏特/米，因此转换为光功率时无需考虑光纤的尺寸或特性阻抗。因此</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mtext>Power</mtext><mo>=</mo><mi mathvariant="normal">∣</mi><mi>E</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(5)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\text{Power}=|E(t)|^2\tag{5}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">Power</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">5</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p><strong>谱分析</strong></p>
+<p>可以使用复数傅里叶变换在频域中查看信号。但首先必须将信号转换为块模式。频谱将是双侧的，其中心点对应于提取的载波频率。正负频率谱不像实值信号那样相关，因此显示的频谱范围是从 <code>SampleModeCenterFrequency - SampleModeBandwidth/2</code>  到 <code>SampleModeCenterFrequency + SampleModeBandwidth/2 - 1/TimeWindow</code>。 VPI 会根据光谱分析仪分辨率带宽内的光功率对其光谱分析仪进行校准。分辨率带宽默认为 <code>1/TimeWindow</code>，其中 <code>TimeWindow</code> 被设置为一个预定义的全局变量。</p>
+<h2 id="信号模式转换">信号模式转换</h2>
+<p>对于采用非周期边界条件（将全局变量 <code>BoundaryConditions</code> 设置为 <code>Aperiodic</code>）的仿真，可以将仿真的一部分在 Sample 模式下运行，另一部分在 Block 模式下运行。这使得模拟效率非常高，因为系统中单向的部分可以用 Block 模式来表示。模块  <code>SampleToBlock</code> 和 <code>BlockToSample</code> 负责进行转换。<code>BlockToSample</code> 还会丢弃超出 Sample 模式模拟带宽的 SFB 和 MFB 频谱能量。</p>
+<p>边界条件和信号流的组合情况总结在下图中。在大多数传输系统仿真中，边界条件是周期性的，这意味着仿真是在块模式下进行的。请注意，块模式涵盖了双向传播，但前提是交互作用是在块与块的时间尺度上进行的。 有时，在仿真中采样模式部分之后错误地放置 <code>BlockToSample</code> 模块可能会导致错误。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\ConvertSignalModes.png" alt="模式、边界条件与单向和双向信号传播之间的关系" style="zoom:67%;"></center>
+<h2 id="多模信号">多模信号</h2>
+<p>多模信号表示法能够对基于多模系统的各种传输系统进行深入研究，例如基于少模或多芯光纤的空间分复用（SDM）系统，或者基于 OM2-5 光纤的接入系统和数据中心通信系统。为了设计此类传输系统，VPI 支持一种特殊的光信号：多模信号，<strong>它使得多个不同的采样频带（或噪声频带）能够在重叠的频率范围内共存</strong>。 这种信号表示方式，连同现有的用于模拟信号调制、接收和分析的工具，极大地简化了空间分复用（SDM）系统的设计和优化。这种表示方式适用于多模传输，并且适用于多芯光纤（MCF）的模拟：通过合适的模式求解器，单个信号可以代表特定光纤芯（对于多模芯则代表特定模式）的信号。</p>
+<h3 id="多模信号的仿真">多模信号的仿真</h3>
+<p>VPI 提供了多个专门用于多模或多芯信号仿真的模块（以及各种相关的实用模块）。专门用于接收（或产生）多模光信号的模块在其名称中以“MM”作为后缀。此外，这些模块的图标上还有一个类似于典型模式轮廓（LP11）的小图像。</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\MM.png" alt="通用多模态仿真系统" style="zoom:50%;"></center>
+<p>多模态模拟的另一个一般原则是（与许多实验情况类似），只有模拟的一部分是完全多模态的，例如对信号在光纤中的传播或信号耦合进行建模。其他操作，如信号生成、检测以及可视化的一些部分，则是在将信号重新拆分为几个单模态信号之后进行的。如上图，Tx 和 BER/SED analysis 都是对单模态信号进行操作。</p>
+<h3 id="无端口模式求解器">无端口模式求解器</h3>
+<p>该仿真框架最重要的扩展功能提供了有关模式的信息，包括其传播常数（色散曲线）和空间分布。这些特性可以通过求解指定光纤几何形状的本征模式得出，也可以由用户直接指定（例如，从数据表中获取的测量数据）。与特定光纤类型相关的模态信息由无端口的“模式求解器”模块控制。通过在不同模块（相同类型的光纤、耦合器）的参数 <code>ModeSolver</code> 中指定模式求解器的 ID，这些信息可以在不同模块之间共享。例如，<code>SolverFiberMM</code> 模块模拟了光纤内部的模式分布。</p>
+<p>此类模块为解决本征模问题或根据某些测量结果指定光纤（波导）模式，提供了对光纤参数的统一接口。此外，模式求解器模块还提供了其他功能，例如指定光纤设计的额外参数，以及掺杂分布或偏振模色散。模式求解器还提供其特定的输出数据，例如模式分布和传播常数的可视化、写入文本文件等。</p>
+<p>由于模式求解器模块没有端口，因此其在调度器中的“触发”（执行）顺序不受任何信号的影响。相反，模式求解器只是响应来自其他模块的请求，这些模块模拟多模信号的传播并调用求解器。</p>
+<p>模式求解器通常作为某些传播器的“一部分”运行，传播器的不同需求可能会激活模式求解器中的不同算法，在某些情况下会导致求解器发出警告或错误消息，这可能会使决定如何更改原理图设置变得困难。</p>
+<p>为了更清晰地传达信息，在 VPI 中</p>
+<ul>
+<li>传播算法产生的错误和警告由一个名为“传播器”的模块进行报告。</li>
+<li>在模式求解算法中产生的错误消息和警告，或者与模式求解器模块中指定的参数相关的错误消息和警告（例如，错误的掺杂分布文件格式），均由求解器模块报告。</li>
+<li>如果不清楚究竟是哪个模块调用了模式求解器，建议开启动画运行仿真，并使用消息日志查看在出现相关错误之前正在运行的是哪个模块。</li>
+</ul>
+<p>模式求解器不必位于模块层次结构的同一级别。当通过 <code>ModeSolver</code> 参数指定模式求解器 ID 时，将应用以下规则：</p>
+<ul>
+<li>如果将 ID 指定为单个模块，则模式求解器将在客户端模块的同一层级及更高层级中进行查找；</li>
+<li>如果指定了部分限定的 ID（例如 MultiModeSpan_vtmg1.SolverFiberMM_ vtms1），则会在一个星系内搜索模式求解器模块；</li>
+</ul>
+<p>在多模仿真中，通常假定所有相连的模型仿真相同的光纤结构（具有相同的模式）。就 VPI 中的方法而言，这意味着所有直接相连的多模模块应引用相同的模式求解器。另一方面，要求使用完全相同的求解器模块会相当严格，并且与产品中可用的许多仿真模式不兼容。例如，对于从文件中读取的信号，模式求解器可能不可用。</p>
+<p>作为一种更灵活的技术，多模仿真框架将模式求解器参数的值（以及求解器模块类型）作为复合键：如果参数值相同，则将两个模式求解器视为相同。对于兼容的模式求解器，相应的模块可以直接连接，无需模式匹配。或者，应使用诸如 <code>CouplerFiberMM</code> 或  <code>CouplerFreeSpaceMM</code> 这样的特殊模块将信号转换为不同的模式求解器（光纤类型）。 在信号和需要它的模块中都提供了对模式求解器的引用。这种方法为仿真完整性提供了额外的验证。</p>
+<p>VPI 提供了以下模式求解器（位于 <code>Fiber</code> 文件夹中）：</p>
+<ul>
+<li><code>SolverFiberMM</code> - 求解具有圆对称性的弱导波光纤的本征模问题（采用 LP 模近似）。</li>
+<li><code>SolverFiberMeasuredMM</code> - 允许基于数据表指定多模和多芯光纤所支持的模式及传播常数。光纤纤芯可以具有不同的特性（异质多芯光纤），并支持单模或多种模式。</li>
+<li>此外，无端口模式求解器模块 <code>SolverVCSEL_MM</code> 用于计算或读取多模垂直腔面发射激光器的模式分布。</li>
+</ul>
+<h3 id="多模信号生成">多模信号生成</h3>
+<p>多模信号可由 VCSEL_MM 模块（位于 <code>Optical Source</code> 文件夹中）直接生成。该模块模拟多模垂直腔面发射激光器的行为，并在其输出端提供多模信号。此外还有另一种可能的方案：生成多个单模光块（通常具有相同的中心频率），然后将其传递给组合器/分离器（多模）模块，如下图所示</p>
+<center><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\AdvanceOfOpticalSig\MultiModeGen.png" alt="多模信号的生成" style="zoom:50%;"></center>
+<p>要在 <code>CombinerSplitterMM</code> 模块中输出与该光纤几何形状兼容的多模信号，必须指定对模式求解器的引用。它可以模拟理想的模式组合（当每个输入信号都精确映射到单个模式时）或测量组合（每个模式都是几个输入信号的叠加，就像实际的模式组合器那样）。 此模块具有双向端口，并使用相同的参数设置同时执行分路和组合操作。</p>
+<h3 id="传播、放大与模式耦合">传播、放大与模式耦合</h3>
+<p>用于多模态仿真的主要模块如下，这些模型描述了特定设备中的信号传播情况：</p>
+<ul>
+<li><code>FiberMM</code>（位于 <code>Fibers</code> 文件夹）<br>
+此模块模拟多模光纤中的信号传播，包括随机模式耦合和克尔效应。传播常数、衰减、模式组内的延迟偏差、偏振模色散系数和重叠积分由模式求解器模块提供；</li>
+<li><code>AmpSysOptMM</code>（位于 <code>Optical Amplifiers</code> 文件夹）<br>
+此模块仿真具有固定增益分布（增益控制模型）的多模信号放大。放大自发辐射通过噪声系数（或通过输入文件）来描述。还支持模式相关的增益和噪声系数；</li>
+<li><code>CouplerFiberMM</code>（位于 <code>Fibers</code> 文件夹）<br>
+此模块可模拟不完美的光纤熔接或连接器（包括偏移和旋转）。另外，它还可作为“模式适配器”，用于连接与不同模式求解器相关的多模模块（包括理想耦合）。耦合系数可通过输入文件提供；</li>
+<li><code>CouplerBeamMM</code>（位于 <code>Fibers</code> 文件夹）<br>
+此模块模拟单模信号（通常具有预定义的光束轮廓）耦合到多模光纤中。可以考虑输入光束的偏移和旋转，从而为物理级扇入/扇出（FIFO）器件的仿真提供基础；</li>
+<li><code>CouplerFreeSpaceMM</code>（位于 <code>Fibers</code> 文件夹）<br>
+此模块可模拟两个多模器件（如多模光纤或垂直腔面发射激光器）之间的接口，这两个器件相隔一定距离，且可能彼此相对错位（轴向旋转、横向偏移和倾斜）。可使用衍射理论计算波导模式之间的耦合系数。这些系数可以通过输入文件提供，也可以根据理想耦合进行设置。该模块具有丰富的可视化和数据导出功能，能够展示近场和远场的总强度分布和模式强度分布，并支持使用 Matplotlib（Python）进行可视化。</li>
+</ul>
+<h3 id="多模信号可视化">多模信号可视化</h3>
+<p><code>SignalAnalyzer</code> 模块原生支持多模信号：各个模式的时域（频域）依赖关系会与模式 ID 和名称一起可视化，并且可以使用所有现有的 VPIphotonicsAnalyzer 工具进行处理。每个信号模式被视为“子输入”，并且所有信号处理（合并、平均等）都是基于每种模式分别进行的。模式的空间和传播特性可供相应的模式求解器进行可视化或保存到文件。</p>
+<blockquote>
+<p>注意：对于 VPIphotonicsAnalyzer 不支持多模信号的功能（例如星座图分析），必须使用 <code>CombinerSplitterMM</code> 模块将多模信号拆分为各个模式，并将输出连接到具有 VPIphotonicsAnalyzer 接口的相应模块。</p>
+</blockquote>
+<p>与信号相关联的模式求解器名称以及模式求解器的“关键”参数值可在 VPIphotonicsAnalyzer 工具的光网络信号层（ONSL）视图中获取。</p>
+<h3 id="多模信号的基本结构">多模信号的基本结构</h3>
+<p>在光纤（或波导）中，“模式”一词指的是光在光纤内稳定传播的状态。多模光纤是具有多种传播模式的光纤，而单模光纤只有一种（若考虑偏振则为两种）。多模光纤的波导特性取决于光纤的几何形状、纤芯/包层的折射率以及工作波长。为了对具有多种模式的信号进行建模，VPI 在扩展光信号表示时遵循以下原则：</p>
+<ul>
+<li>在信号层次结构的顶层，多模信号包含对模式求解器的引用以及所有关键参数的值；</li>
+<li>多模采样信号是作为多频带（MFB）方法的扩展而设计的；</li>
+<li>每个信号频带都包含一个特殊字段，其中包含模式 ID（数值），以及可选的模式名称。模式 ID 确保了效率和通用性。此外，模式求解器模块（例如 <code>SolverFiberMM</code>）可以将模式特性（例如群延迟）作为模式 ID 的函数进行绘制。</li>
+</ul>
+<p>模式编号和标签支持由模式求解器模块提供。</p>
+<blockquote>
+<p>注意：当前，采样模式不支持多模态模拟（即超过 2 种偏振模式）。所有类型的块信号（采样频带信号、参数化信号和噪声箱）都可以是多模的。</p>
+</blockquote>
+<p>上述原则导致了对多模信号操作的若干限制：</p>
+<ul>
+<li>无法将与不同模式求解器（不同的光纤/波导几何形状）相关的波段组合在一个信号中。此外，任何将与不同模式求解器相关的信号进行复用的尝试都会导致错误；</li>
+<li>无法将不带模式信息的原始信号与多模信号进行复用。相对的，应使用诸如 <code>CombinerSplitterMM</code> 或 <code>CouplerBeamMM</code> 等模块（并使用适当的模式求解器）将“无模”信号转换为一个或多个模式，之后才可进行复用；</li>
+<li>最后，对于调用模式求解器的模块，例如 <code>FiberMM</code>，输入信号应指向该模块所使用的求解器（或兼容的求解器）。</li>
+</ul>
+<p>多模信号设计的另一个结果是对信号复用的特殊处理：</p>
+<ul>
+<li>这些信号是按“每种模式”的基础进行叠加的——只有来自相同模式的频段才会被检查是否存在频率重叠，并且可以合并在一起；</li>
+<li>噪声箱的自适应调整以及将其合并到采样频段的操作也是按模式分别进行的。 例如，模式 #2 中产生的 ASE（放大自发辐射）只能合并到模式 #2 的信号中（如果存在的话）。</li>
+</ul>
+<h3 id="模式简并">模式简并</h3>
+<p>许多多模系统的显著特征是其模式传播常数的简并性。在光纤通信系统中，简并通常与光纤的圆对称性有关，其中最常见的有两种简并类型：</p>
+<ul>
+<li><strong>偏振简并</strong>。在一级近似法中，光纤模式内的两种偏振态传播方式相同。偏振模色散（PMD）效应通常被模拟为对固定“理想”传播常数的随机扰动；</li>
+<li><strong>旋转简并</strong>。对于常用的线偏振(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><msub><mi>P</mi><mrow><mi>l</mi><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">LP_{lm}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal">L</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)模式，所有方位角指数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">l &gt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 的模式都包含两个仅在 90° 旋转上有所不同的简并模式。</li>
+</ul>
+<blockquote>
+<p>注意：本节中的讨论假定电场的纵向分量 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>z</mi></msub></mrow><annotation encoding="application/x-tex">E_z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 为零，即弱导波近似条件得到满足。</p>
+</blockquote>
+<p>多模信号的表示将偏振简并模式视为同一模式的一部分。这使得组合和分离偏振复用信号以及在分离多模信号后使用现有的偏振分析工具变得更加容易。相反，在信号模型中，旋转简并模式被视为独立的模式，但在模式求解器模块的层面，可以将它们组合在一起以进行更简单的分析和可视化。</p>
+<blockquote>
+<p>为了保持用词统一，使用以下术语：</p>
+<ul>
+<li>波导模式、光纤模式或（简称为）模式：光波在导波介质中稳定传播的状态。模式通常定义到简并为止。例如，LP 模式在旋转和偏振上是简并的；</li>
+<li>信号模式：多模信号的一个分量。该分量与特定的光纤模式相关，通常用于传输一个信号流（在偏振简并的情况下为两个）。</li>
+</ul>
+</blockquote>
+<p>此外，考虑到 LP 模式对于 VPI 应用的重要性，模式求解器 API 支持对模式分组进行特殊处理，以便更好地处理传播效应。 相比之下，多芯光纤模型的模式不被视为简并模式——由于芯之间通常有良好的分离，即使传播常数相同但属于不同芯的模式也被视为不同的实体。</p>
+<h2 id="总结">总结</h2>
+<p>VPI 对器件细节进行建模的能力基于其信号模式和信号表示的特点。这些功能使光模块能够使用最恰当的表示方式来传输和处理现实世界中的信号。</p>
+<p>仿真模式分为<strong>块模式</strong>和<strong>采样模式</strong>，分别允许在高效、单向建模和通用、双向建模之间进行选择。在块模式中的信号表示能够高效地表示处于宽带光学噪声中的多个波分复用（WDM）信道。参数化信号和噪声箱使得能够以极高的速度对信号和噪声进行仿真。</p>
+<p>双向仿真需要用<strong>采样模式</strong>，除非组件之间的时间延迟较大，但这种情况通常不会出现。采样模式通常是无周期性的，然而，如果采样模式域内的光和电源被设置为周期性的，那么采样模式仿真的输出结果将会是周期性的。换句话说，周期性只是无周期性的一种特殊情况。</p>
+<p>同样地，采样模式对于双向传播是必要的，但也能支持单向传播，这不过是双向传播的一种特殊情况。显然，单向和周期性信号在采样模式下也能得到支持，因为它们只是特殊情况。然而，对于单向信号，非周期性块模式是一种效率更高的仿真域。此外，如果信号是单向且周期性的，则应使用块模式。</p>
+<p>理想情况下，仿真应在块模式下运行以实现最高效率（即单向信号的情况下），而在需要时（双向或非周期信号）则转换为非周期块模式或采样模式。</p>
+<p>采样模式信号是采样模式模块之间进行通信的一种高效方法，这种通信是逐次迭代进行的，在皮秒时间尺度上表示组件之间的双向交互。VPI 光子电路讨论了在不同模式下有源光子组件模型的实现。</p>
+<p>采样模式信号与块模式 SFB 信号表示形式相似，除了偏振信息外，可以无损地转换为 SFB 信号，也可以从 SFB 信号转换而来。对于设备和子系统建模，请使用采样模式，对于系统和网络建模，请使用块模式 SFB（周期性）。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VPI/">VPI</a><a class="post-meta__tags" href="/tags/Optics/">Optics</a></div><div class="post_share"><div class="social-share" data-image="/blog/AdvanceOfOpticalSig/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/media/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/BasisOfOpticalSig/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/BasisOfOpticalSig/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基本信号模式与表示法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blog/BasisOfOpticalSig/" title="基本信号模式与表示法"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/BasisOfOpticalSig/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-13</div><div class="title">基本信号模式与表示法</div></div></a></div><div><a href="/blog/GlobalParainVPI/" title="VPI中的全局参数"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/GlobalParainVPI/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-10</div><div class="title">VPI中的全局参数</div></div></a></div><div><a href="/blog/LoadSPinVPI/" title="VPI中加载光s4p参数"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/LoadSPinVPI/s4p.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-13</div><div class="title">VPI中加载光s4p参数</div></div></a></div><div><a href="/blog/ModuleSettings/" title="模块的选择与设置"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ModuleSettings/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-11</div><div class="title">模块的选择与设置</div></div></a></div><div><a href="/blog/PSR/" title="偏振分束旋转器件(PSR)"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-23</div><div class="title">偏振分束旋转器件(PSR)</div></div></a></div><div><a href="/blog/SignalsinVPI/" title="VPI中信号的表现形式"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SignalsinVPI/SignalFormats.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-10</div><div class="title">VPI中信号的表现形式</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">萌雪</div><div class="author-info__description">这里是雪萌教总部哦！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Loli-Eternally"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:mr.gongjue@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/Loli-Eternally" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">高级信号模式与表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%A1%A8%E7%A4%BA%E6%B3%95%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">信号模式与表示法综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">混合信号表示法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">选择模式和表现形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E8%B0%B1%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.1.3.</span> <span class="toc-text">光谱中的信号表示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">块模式的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%90%91%E4%BC%A0%E6%92%AD%E4%BB%A5%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-number">1.2.1.</span> <span class="toc-text">单向传播以提高效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E6%80%81%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90"><span class="toc-number">1.2.2.</span> <span class="toc-text">稳态效率分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97%E6%A8%A1%E5%BC%8F%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.3.</span> <span class="toc-text">块模式信号表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%A2%91%E5%B8%A6%EF%BC%88SFB%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">单频带（SFB）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%A2%91%E5%B8%A6%EF%BC%88MFB%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">多频带（MFB）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%9A%E4%B8%AA%E9%A2%91%E5%B8%A6"><span class="toc-number">1.3.3.</span> <span class="toc-text">创建多个频带</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MFBs-%E7%9A%84%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.4.</span> <span class="toc-text">MFBs 的数学基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MFB%E4%B8%8B%E5%85%89%E7%BA%A4%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%BC%94%E5%8C%96%E6%96%B9%E7%A8%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">MFB下光纤信号的演化方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MFB%E7%9A%84%E5%81%8F%E6%8C%AF%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.4.2.</span> <span class="toc-text">MFB的偏振表示法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E8%BD%AC%E6%8D%A2%E4%B8%8E%E5%A4%9A%E9%80%9F%E7%8E%87%E8%AE%A1%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text">离散转换与多速率计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MFB%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text">MFB的优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.5.</span> <span class="toc-text">参数化信号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%82%E6%95%B0%E5%8C%96%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.5.1.</span> <span class="toc-text">创建参数化信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E4%BF%A1%E5%8F%B7%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%89%B9%E5%BE%81%E5%8F%82%E6%95%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">统计信号模型的特征参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%BA%A4%E4%BA%92"><span class="toc-number">1.5.3.</span> <span class="toc-text">信号交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%B8%E5%8F%98"><span class="toc-number">1.5.4.</span> <span class="toc-text">畸变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%95%B8%E5%8F%98%E7%9A%84%E5%90%88%E5%B9%B6"><span class="toc-number">1.5.5.</span> <span class="toc-text">参数化信号与畸变的合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E7%AE%B1%EF%BC%88Noise-Bins%EF%BC%8CNB%EF%BC%89"><span class="toc-number">1.5.6.</span> <span class="toc-text">噪声箱（Noise Bins，NB）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E7%AE%B1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-number">1.5.6.1.</span> <span class="toc-text">噪声箱的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E7%AE%B1%E5%B1%9E%E6%80%A7%EF%BC%9A%E5%8F%82%E6%95%B0%E4%B8%8E%E6%8E%A7%E5%88%B6"><span class="toc-number">1.5.6.2.</span> <span class="toc-text">噪声箱属性：参数与控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%99%AA%E5%A3%B0%E5%88%86%E7%AE%B1%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E8%B0%83%E6%95%B4"><span class="toc-number">1.5.6.3.</span> <span class="toc-text">噪声分箱的自适应调整</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA%E6%B3%95-2"><span class="toc-number">1.6.</span> <span class="toc-text">混合信号表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA%E5%9C%A8%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%B5%81%E5%8A%A8"><span class="toc-number">1.6.1.</span> <span class="toc-text">信号表示在系统中的流动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E5%8F%91%E5%B0%84%E6%9C%BA"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">采样模式发射机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%BA%E9%93%92%E5%85%89%E7%BA%A4%E6%94%BE%E5%A4%A7%E5%99%A8"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">掺铒光纤放大器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%85%89%E7%BA%A4"><span class="toc-number">1.6.1.3.</span> <span class="toc-text">非线性光纤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.6.1.4.</span> <span class="toc-text">信号表示之间的转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E5%99%AA%E5%A3%B0%E7%AE%B1%E7%9A%84%E4%BF%A1%E5%8F%B7%E6%B7%BB%E5%8A%A0%E5%88%B0-SFB-MFB-%E4%BF%A1%E5%8F%B7%E4%B8%AD"><span class="toc-number">1.6.2.</span> <span class="toc-text">将噪声箱的信号添加到 SFB&#x2F;MFB 信号中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E4%BF%A1%E5%8F%B7%E4%B8%8E-SFB-MFB-%E4%BF%A1%E5%8F%B7%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.6.3.</span> <span class="toc-text">参数化信号与 SFB&#x2F;MFB 信号之间的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA%E7%9A%84%E5%88%86%E7%A6%BB"><span class="toc-number">1.6.4.</span> <span class="toc-text">信号表示的分离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.7.</span> <span class="toc-text">采样模式信号表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%BA%94%E7%94%A8"><span class="toc-number">1.7.1.</span> <span class="toc-text">双向传播的组件应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E4%BC%A0%E6%92%AD%EF%BC%9A%E9%87%87%E7%94%A8%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">1.7.2.</span> <span class="toc-text">双向传播：采用采样模式的必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E6%8E%92%E5%88%97"><span class="toc-number">1.7.3.</span> <span class="toc-text">模式排列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.7.4.</span> <span class="toc-text">采样模式信号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.7.4.1.</span> <span class="toc-text">采样模式信号的数学基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%87%87%E6%A0%B7%E6%A8%A1%E5%BC%8F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.7.4.2.</span> <span class="toc-text">使用采样模式信号的基本操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.8.</span> <span class="toc-text">信号模式转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.9.</span> <span class="toc-text">多模信号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E4%BF%A1%E5%8F%B7%E7%9A%84%E4%BB%BF%E7%9C%9F"><span class="toc-number">1.9.1.</span> <span class="toc-text">多模信号的仿真</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%AB%AF%E5%8F%A3%E6%A8%A1%E5%BC%8F%E6%B1%82%E8%A7%A3%E5%99%A8"><span class="toc-number">1.9.2.</span> <span class="toc-text">无端口模式求解器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E4%BF%A1%E5%8F%B7%E7%94%9F%E6%88%90"><span class="toc-number">1.9.3.</span> <span class="toc-text">多模信号生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E3%80%81%E6%94%BE%E5%A4%A7%E4%B8%8E%E6%A8%A1%E5%BC%8F%E8%80%A6%E5%90%88"><span class="toc-number">1.9.4.</span> <span class="toc-text">传播、放大与模式耦合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E4%BF%A1%E5%8F%B7%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">1.9.5.</span> <span class="toc-text">多模信号可视化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%A8%A1%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.9.6.</span> <span class="toc-text">多模信号的基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E7%AE%80%E5%B9%B6"><span class="toc-number">1.9.7.</span> <span class="toc-text">模式简并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.10.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blog/AdvanceOfOpticalSig/" title="高级信号模式与表示法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/AdvanceOfOpticalSig/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高级信号模式与表示法"/></a><div class="content"><a class="title" href="/blog/AdvanceOfOpticalSig/" title="高级信号模式与表示法">高级信号模式与表示法</a><time datetime="2025-02-26T07:03:51.000Z" title="发表于 2025-02-26 15:03:51">2025-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/BasisOfOpticalSig/" title="基本信号模式与表示法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/BasisOfOpticalSig/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基本信号模式与表示法"/></a><div class="content"><a class="title" href="/blog/BasisOfOpticalSig/" title="基本信号模式与表示法">基本信号模式与表示法</a><time datetime="2025-02-13T04:20:21.000Z" title="发表于 2025-02-13 12:20:21">2025-02-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ModuleSettings/" title="模块的选择与设置"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ModuleSettings/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模块的选择与设置"/></a><div class="content"><a class="title" href="/blog/ModuleSettings/" title="模块的选择与设置">模块的选择与设置</a><time datetime="2025-02-11T11:48:35.000Z" title="发表于 2025-02-11 19:48:35">2025-02-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/GlobalParainVPI/" title="VPI中的全局参数"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/GlobalParainVPI/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPI中的全局参数"/></a><div class="content"><a class="title" href="/blog/GlobalParainVPI/" title="VPI中的全局参数">VPI中的全局参数</a><time datetime="2025-02-10T11:48:19.000Z" title="发表于 2025-02-10 19:48:19">2025-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SignalsinVPI/" title="VPI中信号的表现形式"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SignalsinVPI/SignalFormats.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPI中信号的表现形式"/></a><div class="content"><a class="title" href="/blog/SignalsinVPI/" title="VPI中信号的表现形式">VPI中信号的表现形式</a><time datetime="2025-02-10T11:23:26.000Z" title="发表于 2025-02-10 19:23:26">2025-02-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 萌雪</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= '/css/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '19b525626faaad8e4e45',
+      clientSecret: '07cefab0dc83cedc869a419770e1dede6c19a38d',
+      repo: 'loli-eternally.github.io',
+      owner: 'Loli-Eternally',
+      admin: ['Loli-Eternally'],
+      id: '67655ae23dfcfd50c45b2396d670266f',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: true,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="9723909579" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="auto" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2d_models/assets/wanko.model.json"},"display":{"position":"left","width":100,"height":150,"hOffset":-10,"vOffset":40},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
