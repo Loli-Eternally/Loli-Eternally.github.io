@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从电路到光电仿真 | 雪萌阁</title><meta name="keywords" content="Roadmap"><meta name="author" content="萌雪"><meta name="copyright" content="萌雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从电路到光电仿真 前言 光电联合仿真技术的历史演进（从 1960s → 2020s）  SPICE → Spectre → Verilog（HDL） → Verilog-A → Verilog-AMS 这条路线就是从“电路模拟”走向“光电混合联合仿真”的历史脉络。      年代 技术阶段 对应关键词 关键意义     1970s 电路仿真起源 SPICE 模拟求解器的祖先   1980s 数字电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从电路到光电仿真">
+<meta property="og:url" content="https://gongjue.fun/blog/ICtoOECosim/index.html">
+<meta property="og:site_name" content="雪萌阁">
+<meta property="og:description" content="从电路到光电仿真 前言 光电联合仿真技术的历史演进（从 1960s → 2020s）  SPICE → Spectre → Verilog（HDL） → Verilog-A → Verilog-AMS 这条路线就是从“电路模拟”走向“光电混合联合仿真”的历史脉络。      年代 技术阶段 对应关键词 关键意义     1970s 电路仿真起源 SPICE 模拟求解器的祖先   1980s 数字电">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gongjue.fun/blog/ICtoOECosim/cover.jpg">
+<meta property="article:published_time" content="2025-12-03T06:17:07.000Z">
+<meta property="article:modified_time" content="2025-12-03T06:27:31.069Z">
+<meta property="article:author" content="萌雪">
+<meta property="article:tag" content="Roadmap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gongjue.fun/blog/ICtoOECosim/cover.jpg"><link rel="shortcut icon" href="/media/favicon.png"><link rel="canonical" href="https://gongjue.fun/blog/ICtoOECosim/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从电路到光电仿真',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-03 14:27:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/blog/ICtoOECosim/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">雪萌阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从电路到光电仿真</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-03T06:17:07.000Z" title="发表于 2025-12-03 14:17:07">2025-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-03T06:27:31.069Z" title="更新于 2025-12-03 14:27:31">2025-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Cosimulation/">Cosimulation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">984</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从电路到光电仿真"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><p style="font-size: 33px; font-weight: bold; color: RoyalBlue">从电路到光电仿真</p></center>
+<h2 id="前言">前言</h2>
+<p>光电联合仿真技术的历史演进（从 1960s → 2020s）</p>
+<blockquote>
+<p>SPICE → Spectre → Verilog（HDL） → Verilog-A → Verilog-AMS<br>
+这条路线就是从“电路模拟”走向“光电混合联合仿真”的历史脉络。</p>
+</blockquote>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\ICtoOECosim\Evolution.jpg" alt="Evolution" style="zoom:50%;" />
+<table>
+<thead>
+<tr>
+<th>年代</th>
+<th>技术阶段</th>
+<th>对应关键词</th>
+<th>关键意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1970s</strong></td>
+<td>电路仿真起源</td>
+<td><strong>SPICE</strong></td>
+<td>模拟求解器的祖先</td>
+</tr>
+<tr>
+<td><strong>1980s</strong></td>
+<td>数字电路描述</td>
+<td><strong>Verilog</strong>（HDL）</td>
+<td>数字 IC/FPGA 标准语言</td>
+</tr>
+<tr>
+<td><strong>1990s</strong></td>
+<td>模拟仿真增强</td>
+<td><strong>Spectre</strong></td>
+<td>高级 SPICE，工业标准</td>
+</tr>
+<tr>
+<td><strong>1990s</strong></td>
+<td>模拟行为建模</td>
+<td><strong>Verilog-A</strong></td>
+<td>高层次模拟行为模型</td>
+</tr>
+<tr>
+<td><strong>2000s</strong></td>
+<td>混合信号统一</td>
+<td><strong>Verilog-AMS</strong></td>
+<td>数模统一仿真语言</td>
+</tr>
+<tr>
+<td><strong>2010s–2020s</strong></td>
+<td>光电联合仿真</td>
+<td>ADS + VPI + MATLAB</td>
+<td>电子 + 光 + DSP 全链路仿真</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1970s：SPICE-—-一切模拟电路仿真的起点">1970s：SPICE — 一切模拟电路仿真的起点</h2>
+<h3 id="1973：SPICE1（伯克利）">1973：SPICE1（伯克利）</h3>
+<ul>
+<li>电路仿真的“祖先级”工具</li>
+<li>基于 KCL/KVL、电路方程求解</li>
+<li>面向模拟电路（Analog）</li>
+</ul>
+<h3 id="为什么重要？">为什么重要？</h3>
+<p>SPICE 创造了：</p>
+<ul>
+<li>电路网表（netlist）语言</li>
+<li>器件模型（MOS/BJT）</li>
+<li>瞬态/AC/DC 仿真流程</li>
+</ul>
+<p>所有后来的模拟求解器（Spectre、ADS、HSPICE）本质都是 SPICE 的后代。</p>
+<hr>
+<h2 id="1990s：Spectre-—-SPICE-的工业级增强版">1990s：Spectre — SPICE 的工业级增强版</h2>
+<h3 id="1993：Cadence-推出-Spectre">1993：Cadence 推出 Spectre</h3>
+<p>它做了三件大事：</p>
+<ol>
+<li>增强 SPICE 求解器（更快、更稳定）</li>
+<li>支持行为建模语言（Verilog-A）</li>
+<li>能够仿真真实 IC 级别的模拟电路</li>
+</ol>
+<p>Spectre = 高级 SPICE</p>
+<ul>
+<li>更快</li>
+<li>更稳定</li>
+<li>支持 BSIM3/4、FinFET 等先进模型</li>
+<li>后来又加入 SpectreRF（HB 分析）</li>
+</ul>
+<h3 id="逻辑演进：">逻辑演进：</h3>
+<blockquote>
+<p>SPICE 是基础 → Spectre 把 SPICE 变成工业标准。</p>
+</blockquote>
+<hr>
+<h2 id="1980s–1990s：Verilog-HDL-—-数字电路时代到来">1980s–1990s：Verilog / HDL — 数字电路时代到来</h2>
+<h3 id="1984：Verilog-诞生（Gateway-Design）">1984：Verilog 诞生（Gateway Design）</h3>
+<ul>
+<li>用于数字电路结构、逻辑行为描述</li>
+<li>后被 IEEE 标准化（IEEE 1364）</li>
+</ul>
+<p>HDL（Hardware Description Language）是类别：</p>
+<ul>
+<li>Verilog = HDL 的成员</li>
+<li>VHDL = 另一成员</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>离散事件驱动（event-driven）</li>
+<li>能综合（synthesis）成硬件</li>
+<li>主要用于 数字 IC / FPGA</li>
+</ul>
+<h3 id="逻辑演进：-2">逻辑演进：</h3>
+<blockquote>
+<p>SPICE / Spectre = 模拟世界<br>
+Verilog / HDL = 数字世界</p>
+</blockquote>
+<hr>
+<h2 id="1990s：Verilog-A-—-模拟行为建模出现">1990s：Verilog-A — 模拟行为建模出现</h2>
+<h3 id="1996：Verilog-A-发布（由-Analog-技术委员会制定）">1996：Verilog-A 发布（由 Analog 技术委员会制定）</h3>
+<p>它解决了一个大问题：</p>
+<blockquote>
+<p>SPICE 的方程式太难写 → 模拟器件需要更高层语言。</p>
+</blockquote>
+<p>Verilog-A 的特点：</p>
+<ul>
+<li>连续时间</li>
+<li>写等效电路模型</li>
+<li>写激光器、MZM、TIA 等行为模型</li>
+<li>被 Spectre / ADS / HSPICE 支持</li>
+</ul>
+<h3 id="逻辑演进：-3">逻辑演进：</h3>
+<blockquote>
+<p>Verilog → 描述数字电路<br>
+Verilog-A → 描述模拟电路</p>
+</blockquote>
+<p>两兄弟语言终于开始靠近。</p>
+<hr>
+<h2 id="2000s：Verilog-AMS-—-模拟-数字的统一语言">2000s：Verilog-AMS — 模拟 + 数字的统一语言</h2>
+<h3 id="2002：Verilog-AMS（Analog-Mixed-Signal）">2002：Verilog-AMS（Analog + Mixed-Signal）</h3>
+<p>它把 Verilog（数字） 和 Verilog-A（模拟） 合并成统一语言：</p>
+<ul>
+<li>数字事件驱动 + 模拟连续时间</li>
+<li>可以描述 A/D、D/A</li>
+<li>可以做 CDR / FFE / DFE 联合模拟</li>
+<li>可以做光电器件 + 数字 DSP 联合仿真（ADS、Cadence AMS Designer）</li>
+</ul>
+<p>这一步非常关键：</p>
+<blockquote>
+<p>Verilog-AMS = 数字 + 模拟 → 混合信号（Mixed-Signal）<br>
+联合仿真的基础语言标准就此诞生。</p>
+</blockquote>
+<hr>
+<h2 id="2010s–2020s：光电联合仿真（E-O-Co-Simulation）时代">2010s–2020s：光电联合仿真（E-O Co-Simulation）时代</h2>
+<p>随着 CPO、硅光、400G/800G/1.6T 光模块发展，纯电路或纯光学仿真都不足：</p>
+<p>必须将 <strong>光链路 + 模拟电路 + 数字 DSP + EM 封装</strong> 综合。</p>
+<p>于是出现：</p>
+<ol>
+<li>ADS + Verilog-A（模拟）</li>
+<li>VPI + 光器件（光域）</li>
+<li>Verilog-AMS + IBIS-AMI（数字 DSP 行为）</li>
+<li>MATLAB DSP → E/O/E 综合仿真</li>
+</ol>
+<p>并且逐步形成：</p>
+<blockquote>
+<p>SPICE → Spectre → Verilog-A → Verilog-AMS → 光电联合仿真（ADS + VPI + DSP）</p>
+</blockquote>
+<p>这是今天光互连、CPO、硅光链路仿真的标准流程。</p>
+<hr>
+<h2 id="Verilog-AMS-和-Verilog-A-的区别">Verilog-AMS 和 Verilog A 的区别</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Verilog-A</th>
+<th>Verilog-AMS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仿真域</td>
+<td><strong>仅模拟 Analog</strong></td>
+<td><strong>模拟 + 数字 Mixed-Signal</strong></td>
+</tr>
+<tr>
+<td>仿真方式</td>
+<td>连续时间微分方程</td>
+<td>连续 + 事件驱动（同时存在）</td>
+</tr>
+<tr>
+<td>能否写数字逻辑</td>
+<td>❌ 不行</td>
+<td>✔ 可以写和 Verilog 一样的 digital logic</td>
+</tr>
+<tr>
+<td>模型对象</td>
+<td>模拟器件、行为模型、光器件</td>
+<td>ADC、DAC、CDR、PLL、SerDes、混合信号链路</td>
+</tr>
+<tr>
+<td>支持的端口类型</td>
+<td>electrical、optical（扩展）</td>
+<td>electrical、digital、logic、wreal 等</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>MZM、PD、TIA、激光器、滤波器模型</td>
+<td>ADC/DAC、CDR、FFE/DFE、PHY、SerDes</td>
+</tr>
+<tr>
+<td>仿真器支持</td>
+<td>Spectre、ADS、HSPICE</td>
+<td>AMS Designer、ADS AMS、Spectre AMS</td>
+</tr>
+</tbody>
+</table>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Roadmap/">Roadmap</a></div><div class="post_share"><div class="social-share" data-image="/blog/ICtoOECosim/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/media/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/EOCosimKnowledgeGraph/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">光电联合仿真知识谱图</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-03</div><div class="title">光电联合仿真知识谱图</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">萌雪</div><div class="author-info__description">这里是雪萌教总部哦！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Loli-Eternally"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:mr.gongjue@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/Loli-Eternally" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1970s%EF%BC%9ASPICE-%E2%80%94-%E4%B8%80%E5%88%87%E6%A8%A1%E6%8B%9F%E7%94%B5%E8%B7%AF%E4%BB%BF%E7%9C%9F%E7%9A%84%E8%B5%B7%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">1970s：SPICE — 一切模拟电路仿真的起点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1973%EF%BC%9ASPICE1%EF%BC%88%E4%BC%AF%E5%85%8B%E5%88%A9%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">1973：SPICE1（伯克利）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">为什么重要？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1990s%EF%BC%9ASpectre-%E2%80%94-SPICE-%E7%9A%84%E5%B7%A5%E4%B8%9A%E7%BA%A7%E5%A2%9E%E5%BC%BA%E7%89%88"><span class="toc-number">3.</span> <span class="toc-text">1990s：Spectre — SPICE 的工业级增强版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1993%EF%BC%9ACadence-%E6%8E%A8%E5%87%BA-Spectre"><span class="toc-number">3.1.</span> <span class="toc-text">1993：Cadence 推出 Spectre</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%BC%94%E8%BF%9B%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">逻辑演进：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1980s%E2%80%931990s%EF%BC%9AVerilog-HDL-%E2%80%94-%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E6%97%B6%E4%BB%A3%E5%88%B0%E6%9D%A5"><span class="toc-number">4.</span> <span class="toc-text">1980s–1990s：Verilog &#x2F; HDL — 数字电路时代到来</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1984%EF%BC%9AVerilog-%E8%AF%9E%E7%94%9F%EF%BC%88Gateway-Design%EF%BC%89"><span class="toc-number">4.1.</span> <span class="toc-text">1984：Verilog 诞生（Gateway Design）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%BC%94%E8%BF%9B%EF%BC%9A-2"><span class="toc-number">4.2.</span> <span class="toc-text">逻辑演进：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1990s%EF%BC%9AVerilog-A-%E2%80%94-%E6%A8%A1%E6%8B%9F%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1%E5%87%BA%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text">1990s：Verilog-A — 模拟行为建模出现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1996%EF%BC%9AVerilog-A-%E5%8F%91%E5%B8%83%EF%BC%88%E7%94%B1-Analog-%E6%8A%80%E6%9C%AF%E5%A7%94%E5%91%98%E4%BC%9A%E5%88%B6%E5%AE%9A%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">1996：Verilog-A 发布（由 Analog 技术委员会制定）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%BC%94%E8%BF%9B%EF%BC%9A-3"><span class="toc-number">5.2.</span> <span class="toc-text">逻辑演进：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2000s%EF%BC%9AVerilog-AMS-%E2%80%94-%E6%A8%A1%E6%8B%9F-%E6%95%B0%E5%AD%97%E7%9A%84%E7%BB%9F%E4%B8%80%E8%AF%AD%E8%A8%80"><span class="toc-number">6.</span> <span class="toc-text">2000s：Verilog-AMS — 模拟 + 数字的统一语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2002%EF%BC%9AVerilog-AMS%EF%BC%88Analog-Mixed-Signal%EF%BC%89"><span class="toc-number">6.1.</span> <span class="toc-text">2002：Verilog-AMS（Analog + Mixed-Signal）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2010s%E2%80%932020s%EF%BC%9A%E5%85%89%E7%94%B5%E8%81%94%E5%90%88%E4%BB%BF%E7%9C%9F%EF%BC%88E-O-Co-Simulation%EF%BC%89%E6%97%B6%E4%BB%A3"><span class="toc-number">7.</span> <span class="toc-text">2010s–2020s：光电联合仿真（E-O Co-Simulation）时代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verilog-AMS-%E5%92%8C-Verilog-A-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">8.</span> <span class="toc-text">Verilog-AMS 和 Verilog A 的区别</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blog/ICtoOECosim/" title="从电路到光电仿真"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ICtoOECosim/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从电路到光电仿真"/></a><div class="content"><a class="title" href="/blog/ICtoOECosim/" title="从电路到光电仿真">从电路到光电仿真</a><time datetime="2025-12-03T06:17:07.000Z" title="发表于 2025-12-03 14:17:07">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="光电联合仿真知识谱图"/></a><div class="content"><a class="title" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图">光电联合仿真知识谱图</a><time datetime="2025-12-03T02:53:46.000Z" title="发表于 2025-12-03 10:53:46">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/QuantumNumbers/" title="三个量子数的由来"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/QuantumNumbers/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三个量子数的由来"/></a><div class="content"><a class="title" href="/blog/QuantumNumbers/" title="三个量子数的由来">三个量子数的由来</a><time datetime="2025-12-01T09:46:58.000Z" title="发表于 2025-12-01 17:46:58">2025-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SphericalHarmonics/" title="3D 球谐函数可视化"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SphericalHarmonics/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="3D 球谐函数可视化"/></a><div class="content"><a class="title" href="/blog/SphericalHarmonics/" title="3D 球谐函数可视化">3D 球谐函数可视化</a><time datetime="2025-11-27T09:29:52.000Z" title="发表于 2025-11-27 17:29:52">2025-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ShannonTheorems/" title="香农定理解读"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ShannonTheorems/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="香农定理解读"/></a><div class="content"><a class="title" href="/blog/ShannonTheorems/" title="香农定理解读">香农定理解读</a><time datetime="2025-11-26T06:53:00.000Z" title="发表于 2025-11-26 14:53:00">2025-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 萌雪</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= '/css/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '19b525626faaad8e4e45',
+      clientSecret: '07cefab0dc83cedc869a419770e1dede6c19a38d',
+      repo: 'loli-eternally.github.io',
+      owner: 'Loli-Eternally',
+      admin: ['Loli-Eternally'],
+      id: 'bceae4dc6387da653629d6d29547bf22',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: true,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="9723909579" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="auto" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2d_models/assets/wanko.model.json"},"display":{"position":"left","width":100,"height":150,"hOffset":-10,"vOffset":40},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
