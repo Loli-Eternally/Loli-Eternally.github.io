@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CMOS 反相器理论与仿真 | 雪萌阁</title><meta name="keywords" content="Electronics,Virtuoso,Intro"><meta name="author" content="萌雪"><meta name="copyright" content="萌雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CMOS 反相器理论与仿真 前言 了解 EDA 软体的发展历史的时候 EDA 軟體是怎麼發明的？從 Virtuoso 到 Verilog，看到了一张图  我突然就想读懂这张图及其背后的物理过程，将自己的心得记录下来。 这是一张电路 Layout 的绘图，该图描述的器件是一个反相器。为什么这些红的蓝的绿的图案组合起来是一个反相器？内部的工作原理是怎样的呢？我挺感兴趣的！  CMOS 基础概述 首先介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMOS 反相器理论与仿真">
+<meta property="og:url" content="https://gongjue.fun/blog/Inverter/index.html">
+<meta property="og:site_name" content="雪萌阁">
+<meta property="og:description" content="CMOS 反相器理论与仿真 前言 了解 EDA 软体的发展历史的时候 EDA 軟體是怎麼發明的？從 Virtuoso 到 Verilog，看到了一张图  我突然就想读懂这张图及其背后的物理过程，将自己的心得记录下来。 这是一张电路 Layout 的绘图，该图描述的器件是一个反相器。为什么这些红的蓝的绿的图案组合起来是一个反相器？内部的工作原理是怎样的呢？我挺感兴趣的！  CMOS 基础概述 首先介">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gongjue.fun/blog/Inverter/cover.jpg">
+<meta property="article:published_time" content="2025-12-10T09:22:49.000Z">
+<meta property="article:modified_time" content="2025-12-11T01:18:58.019Z">
+<meta property="article:author" content="萌雪">
+<meta property="article:tag" content="Electronics">
+<meta property="article:tag" content="Virtuoso">
+<meta property="article:tag" content="Intro">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gongjue.fun/blog/Inverter/cover.jpg"><link rel="shortcut icon" href="/media/favicon.png"><link rel="canonical" href="https://gongjue.fun/blog/Inverter/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CMOS 反相器理论与仿真',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-11 09:18:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/blog/Inverter/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">雪萌阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CMOS 反相器理论与仿真</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-10T09:22:49.000Z" title="发表于 2025-12-10 17:22:49">2025-12-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-11T01:18:58.019Z" title="更新于 2025-12-11 09:18:58">2025-12-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Cosimulation/">Cosimulation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CMOS 反相器理论与仿真"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><p style="font-size: 33px; font-weight: bold; color: RoyalBlue"><center><p style="font-size: 33px; font-weight: bold; color: RoyalBlue">CMOS 反相器理论与仿真</p></center></p></center>
+<h2 id="前言">前言</h2>
+<p>了解 EDA 软体的发展历史的时候 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1Qa48J9fqcA">EDA 軟體是怎麼發明的？從 Virtuoso 到 Verilog</a>，看到了一张图</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\CMOS-Inverter.png" alt="CMOS 反相器" />
+<p>我突然就想读懂这张图及其背后的物理过程，将自己的心得记录下来。</p>
+<p>这是一张电路 Layout 的绘图，该图描述的器件是一个反相器。为什么这些红的蓝的绿的图案组合起来是一个反相器？内部的工作原理是怎样的呢？我挺感兴趣的！</p>
+<hr>
+<h2 id="CMOS-基础概述">CMOS 基础概述</h2>
+<p>首先介绍一下 CMOS 的基础原理，想必我们在电路图中也经常看到下面这些器件</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://electronicsarea.com/wp-content/uploads/symbols-nmos-pmos-transistor.png" alt="NMOS and PMOS Transistor Symbols - MOSFET Transistors" style="zoom:120%;" />
+<p>我们管将器件导通的载流子叫多数载流子，如果多数载流子为电子，则该 MOS 器件为 NMOS，如果是空穴，则为 PMOS。</p>
+<p>MOS 管相比BJT，除了栅极源极和漏极（对应 BJT 的基极发射极和集电极），还有一个体区。体区（通常称为衬底 Substrate 或 Bulk）是 MOSFET 结构的基础，通常连接到源极或一个特定的偏置电压，用于控制器件的阈值电压或提供静电保护。下面是 NMOS 管的物理结构</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://electronicsarea.com/wp-content/uploads/physical-structure-nmos-transistor.png" alt="NMOS Transistor Physical Structure - MOSFET Transistors" style="zoom:130%;" />
+<p>电路图中 MOS 器件符号中有个箭头符号，这个符号代表体区的 PN 指向。如果是 NMOS 管，体区是 P 掺杂，那么 PN 指向就是从体区指向栅极，箭头朝里。如果是 PMOS 管，体区是 N 掺杂，PN 从栅极指向体区，箭头朝外。</p>
+<p>当对 NMOS 管的栅极加上了正电压，体区的电子会被拉拽到源极和漏极之间形成 N 型导电沟道，此时 NMOS 管就会导通产生电流。但如果是 PMOS 管栅极加上了正电压，作为多数载流子的空穴被排斥，导通电流所需的 P 型导电沟道更难产生了，PMOS 管就会关闭，由此实现了电流的开关功能。</p>
+<p>MOS 管还分增强型和耗尽型，所谓的增强和耗尽，指的是零栅压下的管子的导通状态。增强型（Enhancement Mode）在栅源电压为零时是截止的，需要施加足够的正向(NMOS)或负向(PMOS)电压才能形成沟道并导通（增强载流子）；而耗尽型（Depletion Mode）在栅源电压为零时已有沟道并导通，需要施加反向电压来“耗尽”沟道，使管子截止。增强型在数字电路中更常用，耗尽型可用于模拟电路中，且栅压可正可负。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\E-D-MOS.png" alt="增强和耗尽型的MOS管" style="zoom:120%;" />
+<hr>
+<h2 id="反相器工作原理">反相器工作原理</h2>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://image2.slideserve.com/3925257/cmos-layout-l.jpg" alt="CMOS Inverter" style="zoom:45%;" />
+<p><strong>CMOS 反相器由一只 PMOS 和一只 NMOS 构成，两者漏极相连作为输出，栅极共同作为输入。NMOS 源极接 VSS，PMOS 源极接 VDD。</strong></p>
+<ul>
+<li><strong>当输入为高电平时</strong>，NMOS 导通、PMOS 截止，输出被 NMOS 拉到 VSS，得到低电平。</li>
+<li><strong>当输入为低电平时</strong>，PMOS 导通、NMOS 截止，输出被 PMOS 拉到 VDD，得到高电平。</li>
+</ul>
+<p>因此该结构实现了输入逻辑的反相，故称“反相器”。</p>
+<p>上图是反相器的俯视图和截面图，从截面图可以看出，左边是 NMOS，右边是 PMOS。当红色方块区域加上高电平时，左边 NMOS 形成 N 沟道并导通，输出被拉至 VSS 低电平；当红色方块区域加上低电平时，右边 PMOS 形成 P 沟道并导通，输出被拉至 VDD 高电平。这里之所以在 NMOS 左边有个 p+，在 PMOS 右边有个 n+，是因为 P-substrate（用于 NMOS）与 N-well（用于 PMOS）虽然分别为 P 型与 N 型材料，但它们都是轻掺杂区域，其体电阻非常高（kΩ 至 MΩ 级）。如此高的电阻无法保证 Body（体区）电位稳定地维持在 VSS/VDD。因此必须在体区中插入重掺杂的 P+ 或 N+ 区域作为 “Body Contact / Well Tie”，提供一个低阻路径，将 Body 牢固钳制到 VSS（对 NMOS）或 VDD（对 PMOS）。这样能够避免 Body 漂移、阈值变化和 latch-up 等问题。</p>
+<p>我们回头来看这张图就很清晰明了了</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\CMOS-Inverter.png" alt="CMOS 反相器" />
+<p>左边是一个接地的 NMOS，p+ 和左边的 n+ 被遮住了；右边是一个 PMOS，刻意将 N-well 露了出来，还给最右边的 n+ 接了 VDD 以保证体区电压的稳定。</p>
+<hr>
+<h2 id="在-virtuoso-中仿真反相器">在 virtuoso 中仿真反相器</h2>
+<h3 id="创建原理图">创建原理图</h3>
+<p>本来不想加这一栏的，但想了想，这也算是对 spectre 做一个简单的入门，毕竟前面刚入门了 SPICE。</p>
+<p>想用 spectre 是有点麻烦的，原因在于这款 <strong>Spectre Circuit Simulator</strong> 已经和 Cadence 的 Virtuoso 集成在了一起，而后者作为 <strong>模拟/混合信号 IC 设计</strong> 的核心平台，软件相当笨重，有十几二十G。这还不算最有趣的，最有趣的是这款软件仅有 linux 平台的版本，安装起来配置各种环境和依赖相当棘手。因此我劝大家直接搞个虚拟机，装个镜像将就着用吧。毕竟咱们的目的是为了学习 spectre，而不是为了学习如何装这款软件…</p>
+<p>在 linux 桌面直接点右键，打开 terminal 并输入 virtuoso 就能启动软件了。但此时你打开的只是一个日志界面，也就是初始界面。日志里会记录一些你的或 Virtuoso 的行为，例如文件加载，网表生成，错误警告等。</p>
+<p>类似写程序脚本，我们第一次使用 Virtuoso，需要创建一个自己的工作区，在这里就是新建一个 library。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Mylib.png" alt="新建原理图" />
+<p>这里的 Technology File 代表工艺选择。也就是：<strong>这个库要不要知道金属层、via、DRC 规则、层定义、版图规则等？</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>是否和 PDK 工艺关联？</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Do not need process information</strong></td>
+<td>❌ 不关联工艺</td>
+<td>不做版图，只做逻辑/仿真</td>
+</tr>
+<tr>
+<td><strong>Attach to existing tech lib</strong></td>
+<td>✔ 必须关联工艺（最常用）</td>
+<td>做 analog/mixed-signal 设计必须选</td>
+</tr>
+<tr>
+<td>Compile ASCII</td>
+<td>自己开发工艺库用</td>
+<td>小众</td>
+</tr>
+<tr>
+<td>Reference existing</td>
+<td>共享已有 TechLib 层定义</td>
+<td>较少使用</td>
+</tr>
+</tbody>
+</table>
+<p>如果只做仿真，不需要 layout，可以不用关联 PDK 工艺。但如果需要 layout，就必须要关联工艺。因为你光有原理图没用，做出实物必须要画出版图，但版图不是你随便画的，有许多约束。</p>
+<p>因此这里最好还是关联一个 PDK 的工艺，随便选一个就行。</p>
+<p>有了 library，就可以在里面创建一个 cellview 了，这里选择原理图 schematic。</p>
+<p>这里还可以选择 cell 的类型，例如 Spice，Spectre 等。</p>
+<p>下面的 Open with 表示你可以用哪种应用打开，不同的 cell 格式需要用不同的应用打开，例如 Spice 就只能用文本编辑器打开。</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Cellview.png" alt="创建原理图" style="zoom: 120%;" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\CellviewType.png" alt="类型选择" /></th>
+</tr>
+</thead>
+</table>
+<h3 id="绘制原理图">绘制原理图</h3>
+<p>右键或者按键盘 I 就能开始往原理图上放器件。选定一个器件，按 Q 就能对属性进行编辑。添加端口按 P，旋转器件按 R。端口的输入情况后面仿真时会单独定义激励。此外，对器件的修改还可以在左下角的 Property Editor 中进行。导航栏 Navigator 可以按照类型，对器件，网络，引脚分类并快速定位。</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\PlaceComp.png" alt="器件放置" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Navigator-PropEditor.png" alt="导航栏与属性编辑栏" /></th>
+</tr>
+</thead>
+</table>
+<h3 id="仿真设置">仿真设置</h3>
+<p>原理图画好后就可以打开仿真应用了。这里用的是 ADE L（老版本的只做一次仿真，反正就走一下流程）。</p>
+<p>在原理图界面左上角选项 Launch -&gt; ADE L 打开仿真编辑器。</p>
+<p>编辑激励 PORT，记住给 Enabled 打勾。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Stimuli.png" alt="编辑激励PORT" />
+<p>选择分析类型 tran，这个是瞬态分析，类似 SPICE 里的 .TRAN。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Tran.png" alt="瞬态分析" style="zoom:100%;" />
+<p>选定输出绘图，可以 From Design 对要输出的网络或端口进行选择，或者直接 to Be Plotted 选定要绘制的参数。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\OutSetting.png" alt="选定输出变量并绘图" />
+<p>最后点击右侧的绿色小三角，开跑。得到的结果如图。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Result.png" alt="输入输出结果展示" style="zoom:67%;" />
+<p>这里要注意的是，可以直接生成网表。如果仿真器选择的是 spectre，你导出的网表脚本就是 spectre 的脚本。</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Simulator.png" alt="选择仿真器" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\Netlist.png" alt="生成网表" /></th>
+</tr>
+</thead>
+</table>
+<p>.scs 文件代表 <strong>Spectre Circuit Simulator</strong>，也就是生成的 spectre 的脚本送入到 spectre 仿真器中计算。这个语言很像我们前面入门讲过的 SPICE，因为 spectre 就是 SPICE 的加强版，语法更现代、结构更清晰、功能更强。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Inverter\SpectreNetlist.png" alt="生成的网表脚本" />
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Electronics/">Electronics</a><a class="post-meta__tags" href="/tags/Virtuoso/">Virtuoso</a><a class="post-meta__tags" href="/tags/Intro/">Intro</a></div><div class="post_share"><div class="social-share" data-image="/blog/Inverter/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/media/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/SPICE1/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SPICE1/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SPICE 入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blog/ADS-cosim-VPI/" title="VPI中调用ADS模块进行联合仿真"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ADS-cosim-VPI/VPI-ADS.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-13</div><div class="title">VPI中调用ADS模块进行联合仿真</div></div></a></div><div><a href="/blog/HSD/" title="HSD 基础(一&二)"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/HSD/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-27</div><div class="title">HSD 基础(一&二)</div></div></a></div><div><a href="/blog/HSD34/" title="HSD 基础(三&四)"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/HSD34/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-22</div><div class="title">HSD 基础(三&四)</div></div></a></div><div><a href="/blog/ImpedanceMatching/" title="S参数与阻抗匹配"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ImpedanceMatching/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-11</div><div class="title">S参数与阻抗匹配</div></div></a></div><div><a href="/blog/QAM/" title="正交幅度调制 QAM"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/QAM/Rectangular_constellation_for_QAM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-08</div><div class="title">正交幅度调制 QAM</div></div></a></div><div><a href="/blog/SERDESTech/" title="SERDES 技术"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SERDESTech/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-20</div><div class="title">SERDES 技术</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">萌雪</div><div class="author-info__description">这里是雪萌教总部哦！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Loli-Eternally"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:mr.gongjue@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/Loli-Eternally" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMOS-%E5%9F%BA%E7%A1%80%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">CMOS 基础概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E7%9B%B8%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">反相器工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-virtuoso-%E4%B8%AD%E4%BB%BF%E7%9C%9F%E5%8F%8D%E7%9B%B8%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">在 virtuoso 中仿真反相器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">4.1.</span> <span class="toc-text">创建原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">4.2.</span> <span class="toc-text">绘制原理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.3.</span> <span class="toc-text">仿真设置</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blog/Inverter/" title="CMOS 反相器理论与仿真"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/Inverter/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMOS 反相器理论与仿真"/></a><div class="content"><a class="title" href="/blog/Inverter/" title="CMOS 反相器理论与仿真">CMOS 反相器理论与仿真</a><time datetime="2025-12-10T09:22:49.000Z" title="发表于 2025-12-10 17:22:49">2025-12-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SPICE1/" title="SPICE 入门"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SPICE1/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SPICE 入门"/></a><div class="content"><a class="title" href="/blog/SPICE1/" title="SPICE 入门">SPICE 入门</a><time datetime="2025-12-05T09:30:14.000Z" title="发表于 2025-12-05 17:30:14">2025-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ICtoOECosim/" title="从电路到光电仿真"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ICtoOECosim/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从电路到光电仿真"/></a><div class="content"><a class="title" href="/blog/ICtoOECosim/" title="从电路到光电仿真">从电路到光电仿真</a><time datetime="2025-12-03T06:17:07.000Z" title="发表于 2025-12-03 14:17:07">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="光电联合仿真知识谱图"/></a><div class="content"><a class="title" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图">光电联合仿真知识谱图</a><time datetime="2025-12-03T02:53:46.000Z" title="发表于 2025-12-03 10:53:46">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/QuantumNumbers/" title="三个量子数的由来"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/QuantumNumbers/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三个量子数的由来"/></a><div class="content"><a class="title" href="/blog/QuantumNumbers/" title="三个量子数的由来">三个量子数的由来</a><time datetime="2025-12-01T09:46:58.000Z" title="发表于 2025-12-01 17:46:58">2025-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 萌雪</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= '/css/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '19b525626faaad8e4e45',
+      clientSecret: '07cefab0dc83cedc869a419770e1dede6c19a38d',
+      repo: 'loli-eternally.github.io',
+      owner: 'Loli-Eternally',
+      admin: ['Loli-Eternally'],
+      id: '184baf3435a92414a1f788028a32963e',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: true,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="9723909579" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="auto" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2d_models/assets/wanko.model.json"},"display":{"position":"left","width":100,"height":150,"hOffset":-10,"vOffset":40},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
