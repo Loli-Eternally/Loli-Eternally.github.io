@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Virtuoso 中直接运行 Spectre 脚本 | 雪萌阁</title><meta name="keywords" content="Electronics,Virtuoso,Intro"><meta name="author" content="萌雪"><meta name="copyright" content="萌雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Virtuoso 中直接运行 Spectre 脚本 前言 前面我在 LTspice 中运行了 SPICE 脚本，现在想运行它的加强版 Spectre，但我发现直接运行 Spectre 是挺麻烦的，因为它已经和 Virtuoso 集成在了一起。如果想在 Virtuoso 中单独运行 Spectre 脚本也不是不行，就是得先了解 ADE L 的设计逻辑：  ADE L 只能“附着”在一个 schema">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Virtuoso 中直接运行 Spectre 脚本">
+<meta property="og:url" content="https://gongjue.fun/blog/Spectre/index.html">
+<meta property="og:site_name" content="雪萌阁">
+<meta property="og:description" content="Virtuoso 中直接运行 Spectre 脚本 前言 前面我在 LTspice 中运行了 SPICE 脚本，现在想运行它的加强版 Spectre，但我发现直接运行 Spectre 是挺麻烦的，因为它已经和 Virtuoso 集成在了一起。如果想在 Virtuoso 中单独运行 Spectre 脚本也不是不行，就是得先了解 ADE L 的设计逻辑：  ADE L 只能“附着”在一个 schema">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gongjue.fun/blog/Spectre/cover.jpg">
+<meta property="article:published_time" content="2025-12-15T07:27:30.000Z">
+<meta property="article:modified_time" content="2025-12-15T07:32:36.776Z">
+<meta property="article:author" content="萌雪">
+<meta property="article:tag" content="Electronics">
+<meta property="article:tag" content="Virtuoso">
+<meta property="article:tag" content="Intro">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gongjue.fun/blog/Spectre/cover.jpg"><link rel="shortcut icon" href="/media/favicon.png"><link rel="canonical" href="https://gongjue.fun/blog/Spectre/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Virtuoso 中直接运行 Spectre 脚本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-15 15:32:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/blog/Spectre/cover.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">雪萌阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 目录</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Virtuoso 中直接运行 Spectre 脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-15T07:27:30.000Z" title="发表于 2025-12-15 15:27:30">2025-12-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-15T07:32:36.776Z" title="更新于 2025-12-15 15:32:36">2025-12-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Cosimulation/">Cosimulation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">690</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Virtuoso 中直接运行 Spectre 脚本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><p style="font-size: 33px; font-weight: bold; color: RoyalBlue"><center><p style="font-size: 33px; font-weight: bold; color: RoyalBlue">Virtuoso 中直接运行 Spectre 脚本</p></center></p></center>
+<h2 id="前言">前言</h2>
+<p>前面我在 LTspice 中运行了 SPICE 脚本，现在想运行它的加强版 Spectre，但我发现直接运行 Spectre 是挺麻烦的，因为它已经和 Virtuoso 集成在了一起。如果想在 Virtuoso 中单独运行 Spectre 脚本也不是不行，就是得先了解 ADE L 的设计逻辑：</p>
+<blockquote>
+<p>ADE L 只能“附着”在一个 schematic testbench 上工作</p>
+</blockquote>
+<p>ADE L（Cadence Advanced Design Environment L），是virtuoso定制设计平台的入门级模拟设计仿真环境，不是一个纯 netlist runner。它必须先 netlist 一个 schematic，再允许你附加 simulation files（include / model / stimulus）。相当于是我们想直接运行 Spectre 脚本仿真就必须先得有个“宿主”，即新建一个什么都没有的 schematic testbench，让 ADE L 指向这个 schematic，再在 ADE L 中 include 我们的 spectreText，最后再运行。</p>
+<blockquote>
+<p>为什么 Cadence 要这么“反人类”？</p>
+</blockquote>
+<p>ADE L 是 90 年代的产物，设计假设是：所有仿真都来自 schematic。</p>
+<p>后来才补丁式加了：</p>
+<ul>
+<li>spectreText</li>
+<li>Verilog-A</li>
+<li>include files</li>
+</ul>
+<p>所以它永远不允许“没有 schematic 的仿真”，这也是为什么 <strong>ADE Explorer / Assembler</strong> 会更现代、更灵活。</p>
+<p>虽然以后几乎用不上单独跑 Spectre 脚本，但还是要走一下流程，也算是对 Spectre 入个门。</p>
+<hr>
+<h2 id="新建-SpectreText-和-Schematic">新建 SpectreText 和 Schematic</h2>
+<p>新建一个 Cellview，并在 Type 里选择 Spectre</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\NewSpectreTest.png" alt="新建SpectreText" style="zoom:100%;" />
+<p>然后写一个 Spectre 脚本并保存</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\SpectreText.png" alt="简单的Spectre脚本" />
+<p>这是一个用脉冲源驱动的一阶 RC 低通滤波器的 Spectre 顶层 testbench，通过 DC + transient 分析观察其时间响应，并显式保存输入/输出节点。</p>
+<p>再新建一个 Schematic，什么都不用放，直接检查并保存下来。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\CheckSave.png" alt="检查并保存" />
+<hr>
+<h2 id="设置仿真环境">设置仿真环境</h2>
+<p>在该 Schematic 视图下，点击 Launch 的 ADE L，就能启动默认指向该 Schematic 的 ADE L 仿真环境了。</p>
+<p>在 ADE L 中 Setup Simulation Files，并在 Definition Files 中设置 Spectre 脚本的路径</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\SimulationFiles.png" alt="设置仿真文件" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\Settings.png" alt="找到Spectre脚本位置" /></th>
+</tr>
+</thead>
+</table>
+<p>这些都设置好后，在 Virtuoso 的初始界面打开 ViVA XL 结果浏览器，此时还没有任何结果（左边 Browser 栏为空）</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\ViVA.png" alt="打开ViVA查看结果" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\ViVAExplorer.png" alt="ViVA浏览器" style="zoom:65%;" /></th>
+</tr>
+</thead>
+</table>
+<p>最后在 ADE L 窗口点绿色三角运行即可。</p>
+<hr>
+<h2 id="查看仿真结果">查看仿真结果</h2>
+<p>运行后，我们会看到左边蹦出来一个窗口，这个是仿真日志，生了 PSF 文件，说明仿真运行了并产生了结果。由于 ADE L 没有指定结果绘图，因此我们无法直接在 ADE L 里查看结果，只能用刚刚打开的 ViVA 来查看结果情况。</p>
+<p>刚好，我们发现 ViVA 中多了个 psf 的结果文件</p>
+<table>
+<thead>
+<tr>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\ResultLogs.png" alt="仿真日志" /></th>
+<th><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\psfResult.png" alt="ViVA中产生了PSF结果文件" /></th>
+</tr>
+</thead>
+</table>
+<p>点击 tran 文件夹下的 in 和 out，就能在右边窗口绘出瞬态仿真下，输入和输出的结果图，这刚好就是低通滤波器的结果。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="\blog\Spectre\TranInOutResult.png" alt="查看Spectre脚本运行的结果" />
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Electronics/">Electronics</a><a class="post-meta__tags" href="/tags/Virtuoso/">Virtuoso</a><a class="post-meta__tags" href="/tags/Intro/">Intro</a></div><div class="post_share"><div class="social-share" data-image="/blog/Spectre/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/media/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/Inverter/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/Inverter/cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CMOS 反相器理论与仿真</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blog/Inverter/" title="CMOS 反相器理论与仿真"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/Inverter/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-10</div><div class="title">CMOS 反相器理论与仿真</div></div></a></div><div><a href="/blog/ADS-cosim-VPI/" title="VPI中调用ADS模块进行联合仿真"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ADS-cosim-VPI/VPI-ADS.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-13</div><div class="title">VPI中调用ADS模块进行联合仿真</div></div></a></div><div><a href="/blog/HSD/" title="HSD 基础(一&二)"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/HSD/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-27</div><div class="title">HSD 基础(一&二)</div></div></a></div><div><a href="/blog/HSD34/" title="HSD 基础(三&四)"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/HSD34/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-22</div><div class="title">HSD 基础(三&四)</div></div></a></div><div><a href="/blog/ImpedanceMatching/" title="S参数与阻抗匹配"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ImpedanceMatching/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-11</div><div class="title">S参数与阻抗匹配</div></div></a></div><div><a href="/blog/QAM/" title="正交幅度调制 QAM"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/QAM/Rectangular_constellation_for_QAM.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-08</div><div class="title">正交幅度调制 QAM</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">萌雪</div><div class="author-info__description">这里是雪萌教总部哦！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Loli-Eternally"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:mr.gongjue@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://github.com/Loli-Eternally" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA-SpectreText-%E5%92%8C-Schematic"><span class="toc-number">2.</span> <span class="toc-text">新建 SpectreText 和 Schematic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">设置仿真环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BB%BF%E7%9C%9F%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">查看仿真结果</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blog/Spectre/" title="Virtuoso 中直接运行 Spectre 脚本"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/Spectre/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Virtuoso 中直接运行 Spectre 脚本"/></a><div class="content"><a class="title" href="/blog/Spectre/" title="Virtuoso 中直接运行 Spectre 脚本">Virtuoso 中直接运行 Spectre 脚本</a><time datetime="2025-12-15T07:27:30.000Z" title="发表于 2025-12-15 15:27:30">2025-12-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/Inverter/" title="CMOS 反相器理论与仿真"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/Inverter/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMOS 反相器理论与仿真"/></a><div class="content"><a class="title" href="/blog/Inverter/" title="CMOS 反相器理论与仿真">CMOS 反相器理论与仿真</a><time datetime="2025-12-10T09:22:49.000Z" title="发表于 2025-12-10 17:22:49">2025-12-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/SPICE1/" title="SPICE 入门"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/SPICE1/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SPICE 入门"/></a><div class="content"><a class="title" href="/blog/SPICE1/" title="SPICE 入门">SPICE 入门</a><time datetime="2025-12-05T09:30:14.000Z" title="发表于 2025-12-05 17:30:14">2025-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/ICtoOECosim/" title="从电路到光电仿真"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/blog/ICtoOECosim/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从电路到光电仿真"/></a><div class="content"><a class="title" href="/blog/ICtoOECosim/" title="从电路到光电仿真">从电路到光电仿真</a><time datetime="2025-12-03T06:17:07.000Z" title="发表于 2025-12-03 14:17:07">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/media/default_top_img.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="光电联合仿真知识谱图"/></a><div class="content"><a class="title" href="/blog/EOCosimKnowledgeGraph/" title="光电联合仿真知识谱图">光电联合仿真知识谱图</a><time datetime="2025-12-03T02:53:46.000Z" title="发表于 2025-12-03 10:53:46">2025-12-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 萌雪</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= '/css/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '19b525626faaad8e4e45',
+      clientSecret: '07cefab0dc83cedc869a419770e1dede6c19a38d',
+      repo: 'loli-eternally.github.io',
+      owner: 'Loli-Eternally',
+      admin: ['Loli-Eternally'],
+      id: '03c9962885ccf0d792a5bad59bfba809',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: true,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="9723909579" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="auto" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2d_models/assets/wanko.model.json"},"display":{"position":"left","width":100,"height":150,"hOffset":-10,"vOffset":40},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
